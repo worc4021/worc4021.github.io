@@ -23,10 +23,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[      1063,         20]
-NotebookDataLength[    416580,       8925]
-NotebookOptionsPosition[    415894,       8884]
-NotebookOutlinePosition[    416470,       8907]
-CellTagsIndexPosition[    416427,       8904]
+NotebookDataLength[    476814,      10211]
+NotebookOptionsPosition[    476094,      10168]
+NotebookOutlinePosition[    476646,      10191]
+CellTagsIndexPosition[    476603,      10188]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2113,23 +2113,24 @@ Cell[BoxData[
        RowBox[{"-", "5"}], ",", 
        RowBox[{"-", "5"}]}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"5", ",", "5"}], "}"}]}], "}"}]}], "]"}]], "Input", \
+      RowBox[{"5", ",", "5"}], "}"}]}], "}"}], ",", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "True"}]}], "]"}]], "Input", \
 "PluginEmbeddedContent"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`x$$ = {0.15000000000000036`, 0.}, 
-    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+   DynamicModuleBox[{$CellContext`x$$ = {-0.14999999999999947`, \
+-0.2999999999999998}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`x$$], {-5, -5}, {5, 5}}}, Typeset`size$$ = {
-    435., {88., 93.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`x$25893$$ = {0, 0}}, 
+    460., {88., 93.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`x$47750$$ = {0, 0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`x$$ = {-5, -5}}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`x$$, $CellContext`x$25893$$, {0, 0}]}, 
+        Hold[$CellContext`x$$, $CellContext`x$47750$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -2160,10 +2161,385 @@ Cell[BoxData[
            Part[$CellContext`x$$, 2]}]]}, 
       "Specifications" :> {{$CellContext`x$$, {-5, -5}, {5, 5}}}, 
       "Options" :> {}, "DefaultOptions" :> {}],
-     ImageSizeCache->{480., {160., 165.}},
+     ImageSizeCache->{505., {160., 165.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
+    Initialization:>({$CellContext`pIni = (
+         Piecewise[{{12 + 2 $CellContext`x1 + 8 $CellContext`x2, 
+             
+             And[$CellContext`x1 >= 
+              10/9, $CellContext`x2 == (-2 - $CellContext`x1)/4]}, {
+            15/2 - $CellContext`x1/2 - $CellContext`x1^2/8 - 
+             2 $CellContext`x2 - $CellContext`x1 $CellContext`x2 - 
+             2 $CellContext`x2^2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]]]}, {
+            25/2 + (5 $CellContext`x1)/2 + $CellContext`x1^2/8 + 
+             10 $CellContext`x2 + $CellContext`x1 $CellContext`x2 + 
+             2 $CellContext`x2^2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-2 - $CellContext`x1)/4]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]]]}, {
+            4 + (13 $CellContext`x1)/4 + (21 $CellContext`x1^2)/
+              32 - $CellContext`x2/2 - (3 $CellContext`x1 $CellContext`x2)/
+             8 - (15 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (4 - 5 $CellContext`x1)/2]]]}}, 0] + 
+         Piecewise[{{4 (2 + 2 $CellContext`x2), 
+             And[$CellContext`x1 == 2, 
+              Inequality[-1, Less, $CellContext`x2, Less, 1]]}, {
+            4 (5 - $CellContext`x2), 
+             And[$CellContext`x1 == 2, 
+              Inequality[1, Less, $CellContext`x2, Less, 5]]}, {16, 
+             Or[
+              And[$CellContext`x1 == 2, $CellContext`x2 == 1], 
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[(6 - $CellContext`x1)/4, LessEqual, $CellContext`x2,
+                 LessEqual, -3 + 2 $CellContext`x1]]]}, {
+            4 (2 + (-2 + $CellContext`x1 + 4 $CellContext`x2)/2), 
+             Or[
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, -3 + 2 $CellContext`x1]]]}, {
+            4 (1 + 2 $CellContext`x1 - $CellContext`x2), 
+             Or[
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(6 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[(6 - $CellContext`x1)/4, LessEqual, $CellContext`x2,
+                 Less, 1 + 2 $CellContext`x1]]]}, {
+            4 (-1 + 2 $CellContext`x1 - $CellContext`x2 + (-2 + \
+$CellContext`x1 + 4 $CellContext`x2)/2), 
+             Or[
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (6 - $CellContext`x1)/4], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]]]}}, 0] + 
+         Piecewise[{{
+            253/72 + (11 $CellContext`x1)/3 + (29 $CellContext`x2)/12 + 
+             3 $CellContext`x1 $CellContext`x2 - (3 $CellContext`x2^2)/8, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[(-11)/9, Less, $CellContext`x2, Less, 13/9]]}, {
+            2009/162 + (98 $CellContext`x1)/9 - 5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[13/9, Less, $CellContext`x2, Less, 49/9]]}, {
+            15/2 - 2 $CellContext`x1 - 2 $CellContext`x1^2 + $CellContext`x2 + 
+             2 $CellContext`x1 $CellContext`x2 - $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]]]}, {
+            12 + 8 $CellContext`x1 - 4 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 == 2/9, $CellContext`x2 == 13/9], 
+              
+              And[$CellContext`x1 >= 10/9, $CellContext`x2 == 
+               1 + 2 $CellContext`x1], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/9], $CellContext`x2 == 
+               1 + 2 $CellContext`x1]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/
+                9], $CellContext`x2 == (8 + 3 $CellContext`x1)/6], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]]]}, {
+            4 + (7 $CellContext`x1)/4 - (39 $CellContext`x1^2)/
+             32 + (5 $CellContext`x2)/
+              2 + (21 $CellContext`x1 $CellContext`x2)/8 - (
+              3 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (4 - 5 $CellContext`x1)/2], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            25/2 + 10 $CellContext`x1 + 2 $CellContext`x1^2 - 
+             5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]]]}}, 0])/
+        16, $CellContext`pTrans = (
+         Piecewise[{{12 + 5 $CellContext`x1 + 2 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {((
+               2 + (3 $CellContext`x1 - 6 $CellContext`x2)/4) (12 + 
+               5 $CellContext`x1 + 2 $CellContext`x2))/4, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}}, 0] + 
+         Piecewise[{{4 (29/9 - $CellContext`x2), 
+             And[$CellContext`x1 == 10/9, 
+              Inequality[(-7)/9, Less, $CellContext`x2, Less, 29/9]]}, {16, 
+             Or[
+              And[$CellContext`x1 == 10/9, $CellContext`x2 == (-7)/9], 
+              And[$CellContext`x1 > 10/9, 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, LessEqual, -3 + 
+                2 $CellContext`x1]]]}, {
+            4 (1 + 2 $CellContext`x1 - $CellContext`x2), 
+             Or[
+              And[$CellContext`x1 > 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, Less, 1 + 2 $CellContext`x1]]]}}, 
+           0] + Piecewise[{{
+            253/72 + (11 $CellContext`x1)/3 + (29 $CellContext`x2)/12 + 
+             3 $CellContext`x1 $CellContext`x2 - (3 $CellContext`x2^2)/8, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[(-11)/9, Less, $CellContext`x2, Less, 13/9]]}, {
+            2009/162 + (98 $CellContext`x1)/9 - 5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[13/9, Less, $CellContext`x2, Less, 49/9]]}, {
+            15/2 - 2 $CellContext`x1 - 2 $CellContext`x1^2 + $CellContext`x2 + 
+             2 $CellContext`x1 $CellContext`x2 - $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]]]}, {
+            12 + 8 $CellContext`x1 - 4 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 == 2/9, $CellContext`x2 == 13/9], 
+              
+              And[$CellContext`x1 >= 10/9, $CellContext`x2 == 
+               1 + 2 $CellContext`x1], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/9], $CellContext`x2 == 
+               1 + 2 $CellContext`x1]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/
+                9], $CellContext`x2 == (8 + 3 $CellContext`x1)/6], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]]]}, {
+            4 + (7 $CellContext`x1)/4 - (39 $CellContext`x1^2)/
+             32 + (5 $CellContext`x2)/
+              2 + (21 $CellContext`x1 $CellContext`x2)/8 - (
+              3 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (4 - 5 $CellContext`x1)/2], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            25/2 + 10 $CellContext`x1 + 2 $CellContext`x1^2 - 
+             5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]]]}}, 0])/16}; Typeset`initDone$$ = True),
     SynchronousInitialization->True,
     UnsavedVariables:>{Typeset`initDone$$},
     UntrackedVariables:>{Typeset`size$$}], "Manipulate",
@@ -4173,7 +4549,8 @@ Cell[BoxData[{
              RowBox[{"x1", ",", "x2"}], "}"}]}]}], ")"}]}], "\[Equal]", " ", 
         RowBox[{"zero", "[", "2", "]"}]}], "]"}], " ", "[", 
       RowBox[{"[", "2", "]"}], "]"}], ",", "w2"}], "]"}]}], ";"}]}], "Input", \
-"PluginEmbeddedContent"],
+"PluginEmbeddedContent",
+ InitializationCell->True],
 
 Cell[TextData[{
  "We now have everything we need in order to evaluate the probability given \
@@ -4265,7 +4642,8 @@ Cell[BoxData[{
       RowBox[{"{", 
        RowBox[{"w1", ",", 
         RowBox[{"-", "2"}], ",", "2"}], "}"}]}], "]"}]}]}], ";"}]}], "Input", \
-"PluginEmbeddedContent"],
+"PluginEmbeddedContent",
+ InitializationCell->True],
 
 Cell["\<\
 We illustrate the regions defined by the optimal Ms and again give the \
@@ -4378,24 +4756,24 @@ Cell[BoxData[
        RowBox[{"-", "5"}], ",", 
        RowBox[{"-", "5"}]}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"5", ",", "5"}], "}"}]}], "}"}]}], "]"}]], "Input", \
+      RowBox[{"5", ",", "5"}], "}"}]}], "}"}], ",", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "True"}]}], "]"}]], "Input", \
 "PluginEmbeddedContent"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`x$$ = {-0.09999999999999964, 
-    0.3000000000000007}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+   DynamicModuleBox[{$CellContext`x$$ = {-0.6499999999999995, \
+-0.5999999999999996}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`x$$], {-5, -5}, {5, 5}}}, Typeset`size$$ = {
-    303.30126953125, {126.125, 93.}}, Typeset`update$$ = 0, 
-    Typeset`initDone$$, Typeset`skipInitDone$$ = 
-    True, $CellContext`x$34064$$ = {0, 0}}, 
+    603., {88., 93.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`x$52089$$ = {0, 0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`x$$ = {-5, -5}}, 
       "ControllerVariables" :> {
-        Hold[$CellContext`x$$, $CellContext`x$34064$$, {0, 0}]}, 
+        Hold[$CellContext`x$$, $CellContext`x$52089$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -4440,10 +4818,916 @@ $CellContext`lhs -
            Part[$CellContext`x$$, 2]}]]}, 
       "Specifications" :> {{$CellContext`x$$, {-5, -5}, {5, 5}}}, 
       "Options" :> {}, "DefaultOptions" :> {}],
-     ImageSizeCache->{349., {180., 185.}},
+     ImageSizeCache->{648., {160., 165.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
+    Initialization:>({$CellContext`A = {{1, 1}, {-1, 1}}, $CellContext`lhs = {
+        1, 1}, $CellContext`LHS = {{2, -1}, {1/2, 2}}, $CellContext`MD = {{
+         1/4, 1}, {5/16, 13/8}}, $CellContext`MT = {{1, 1}, {1, 
+        1}}, $CellContext`zero[
+         Pattern[$CellContext`m, 
+          Blank[]]] := 
+       ConstantArray[
+        0, {$CellContext`m}], $CellContext`pIni = (
+         Piecewise[{{12 + 2 $CellContext`x1 + 8 $CellContext`x2, 
+             
+             And[$CellContext`x1 >= 
+              10/9, $CellContext`x2 == (-2 - $CellContext`x1)/4]}, {
+            15/2 - $CellContext`x1/2 - $CellContext`x1^2/8 - 
+             2 $CellContext`x2 - $CellContext`x1 $CellContext`x2 - 
+             2 $CellContext`x2^2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]]]}, {
+            25/2 + (5 $CellContext`x1)/2 + $CellContext`x1^2/8 + 
+             10 $CellContext`x2 + $CellContext`x1 $CellContext`x2 + 
+             2 $CellContext`x2^2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-10 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-2 - $CellContext`x1)/4]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-2 - $CellContext`x1)/4]]]}, {
+            4 + (13 $CellContext`x1)/4 + (21 $CellContext`x1^2)/
+              32 - $CellContext`x2/2 - (3 $CellContext`x1 $CellContext`x2)/
+             8 - (15 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (4 - 5 $CellContext`x1)/2]]]}}, 0] + 
+         Piecewise[{{4 (2 + 2 $CellContext`x2), 
+             And[$CellContext`x1 == 2, 
+              Inequality[-1, Less, $CellContext`x2, Less, 1]]}, {
+            4 (5 - $CellContext`x2), 
+             And[$CellContext`x1 == 2, 
+              Inequality[1, Less, $CellContext`x2, Less, 5]]}, {16, 
+             Or[
+              And[$CellContext`x1 == 2, $CellContext`x2 == 1], 
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[(6 - $CellContext`x1)/4, LessEqual, $CellContext`x2,
+                 LessEqual, -3 + 2 $CellContext`x1]]]}, {
+            4 (2 + (-2 + $CellContext`x1 + 4 $CellContext`x2)/2), 
+             Or[
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[(-2 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                LessEqual, -3 + 2 $CellContext`x1]]]}, {
+            4 (1 + 2 $CellContext`x1 - $CellContext`x2), 
+             Or[
+              And[$CellContext`x1 > 2, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(6 - $CellContext`x1)/4, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[(6 - $CellContext`x1)/4, LessEqual, $CellContext`x2,
+                 Less, 1 + 2 $CellContext`x1]]]}, {
+            4 (-1 + 2 $CellContext`x1 - $CellContext`x2 + (-2 + \
+$CellContext`x1 + 4 $CellContext`x2)/2), 
+             Or[
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (6 - $CellContext`x1)/4], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]], 
+              And[
+               Inequality[10/9, LessEqual, $CellContext`x1, Less, 2], 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (6 - $CellContext`x1)/4]]]}}, 0] + 
+         Piecewise[{{
+            253/72 + (11 $CellContext`x1)/3 + (29 $CellContext`x2)/12 + 
+             3 $CellContext`x1 $CellContext`x2 - (3 $CellContext`x2^2)/8, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[(-11)/9, Less, $CellContext`x2, Less, 13/9]]}, {
+            2009/162 + (98 $CellContext`x1)/9 - 5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[13/9, Less, $CellContext`x2, Less, 49/9]]}, {
+            15/2 - 2 $CellContext`x1 - 2 $CellContext`x1^2 + $CellContext`x2 + 
+             2 $CellContext`x1 $CellContext`x2 - $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]]]}, {
+            12 + 8 $CellContext`x1 - 4 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 == 2/9, $CellContext`x2 == 13/9], 
+              
+              And[$CellContext`x1 >= 10/9, $CellContext`x2 == 
+               1 + 2 $CellContext`x1], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/9], $CellContext`x2 == 
+               1 + 2 $CellContext`x1]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/
+                9], $CellContext`x2 == (8 + 3 $CellContext`x1)/6], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]]]}, {
+            4 + (7 $CellContext`x1)/4 - (39 $CellContext`x1^2)/
+             32 + (5 $CellContext`x2)/
+              2 + (21 $CellContext`x1 $CellContext`x2)/8 - (
+              3 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (4 - 5 $CellContext`x1)/2], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            25/2 + 10 $CellContext`x1 + 2 $CellContext`x1^2 - 
+             5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]]]}}, 0])/
+        16, $CellContext`pTrans = (
+         Piecewise[{{12 + 5 $CellContext`x1 + 2 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {((
+               2 + (3 $CellContext`x1 - 6 $CellContext`x2)/4) (12 + 
+               5 $CellContext`x1 + 2 $CellContext`x2))/4, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}}, 0] + 
+         Piecewise[{{4 (29/9 - $CellContext`x2), 
+             And[$CellContext`x1 == 10/9, 
+              Inequality[(-7)/9, Less, $CellContext`x2, Less, 29/9]]}, {16, 
+             Or[
+              And[$CellContext`x1 == 10/9, $CellContext`x2 == (-7)/9], 
+              And[$CellContext`x1 > 10/9, 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, LessEqual, -3 + 
+                2 $CellContext`x1]]]}, {
+            4 (1 + 2 $CellContext`x1 - $CellContext`x2), 
+             Or[
+              And[$CellContext`x1 > 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, Less, 1 + 2 $CellContext`x1]]]}}, 
+           0] + Piecewise[{{
+            253/72 + (11 $CellContext`x1)/3 + (29 $CellContext`x2)/12 + 
+             3 $CellContext`x1 $CellContext`x2 - (3 $CellContext`x2^2)/8, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[(-11)/9, Less, $CellContext`x2, Less, 13/9]]}, {
+            2009/162 + (98 $CellContext`x1)/9 - 5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             And[$CellContext`x1 == 2/9, 
+              Inequality[13/9, Less, $CellContext`x2, Less, 49/9]]}, {
+            15/2 - 2 $CellContext`x1 - 2 $CellContext`x1^2 + $CellContext`x2 + 
+             2 $CellContext`x1 $CellContext`x2 - $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[-3 + 2 $CellContext`x1, Less, $CellContext`x2, Less,
+                 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, 1 + 2 $CellContext`x1]]]}, {
+            12 + 8 $CellContext`x1 - 4 $CellContext`x2, 
+             Or[
+              And[$CellContext`x1 == 2/9, $CellContext`x2 == 13/9], 
+              
+              And[$CellContext`x1 >= 10/9, $CellContext`x2 == 
+               1 + 2 $CellContext`x1], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/9], $CellContext`x2 == 
+               1 + 2 $CellContext`x1]]}, {
+            9/2 + (15 $CellContext`x1)/4 + (25 $CellContext`x1^2)/
+              32 + (3 $CellContext`x2)/
+              2 + (5 $CellContext`x1 $CellContext`x2)/8 + $CellContext`x2^2/8, 
+             Or[
+              And[
+               
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/
+                9], $CellContext`x2 == (8 + 3 $CellContext`x1)/6], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]]]}, {
+            4 + (7 $CellContext`x1)/4 - (39 $CellContext`x1^2)/
+             32 + (5 $CellContext`x2)/
+              2 + (21 $CellContext`x1 $CellContext`x2)/8 - (
+              3 $CellContext`x2^2)/8, 
+             Or[
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, 1 + 2 $CellContext`x1]], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 == (4 - 5 $CellContext`x1)/2], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            25/2 + 10 $CellContext`x1 + 2 $CellContext`x1^2 - 
+             5 $CellContext`x2 - 
+             2 $CellContext`x1 $CellContext`x2 + $CellContext`x2^2/2, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[(-14)/9, LessEqual, $CellContext`x1, Less, 2/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, 5 + 2 $CellContext`x1]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               Inequality[
+               1 + 2 $CellContext`x1, Less, $CellContext`x2, Less, 5 + 
+                2 $CellContext`x1]]]}}, 0])/
+        16, $CellContext`pTr = (
+         Piecewise[{{((12 + 5 $CellContext`x1 + 2 $CellContext`x2) (
+               2 + ((-3) $CellContext`x1 + 6 $CellContext`x2)/4))/4, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            12 + 5 $CellContext`x1 + 2 $CellContext`x2, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, (4 - 5 $CellContext`x1)/2]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, (4 - 5 $CellContext`x1)/2]], 
+              And[$CellContext`x1 <= (-22)/9, 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}}, 0] + 
+         Piecewise[{{
+            4 (2 + (-31 + 23 $CellContext`x1 + 47 $CellContext`x2)/21), 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-11 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/
+                47]]]}, {16, 
+             Or[
+              
+              And[$CellContext`x1 >= 
+               10/9, $CellContext`x2 >= (73 - 23 $CellContext`x1)/47], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, Less, 10/
+                9], $CellContext`x2 >= (73 - 23 $CellContext`x1)/47], 
+              
+              And[$CellContext`x1 <= 
+               2/9, $CellContext`x2 >= (4 - 5 $CellContext`x1)/2]]}}, 0] + 
+         Piecewise[{{
+            1416060125/101348982 + (903325 $CellContext`x1)/
+              181629 + (2115 $CellContext`x2)/
+              217 + (1081 $CellContext`x1 $CellContext`x2)/
+              651 + (2209 $CellContext`x2^2)/1302, 
+             And[$CellContext`x1 == 70/279, 
+              
+              Inequality[(-39275)/13113, Less, $CellContext`x2, Less, (-337)/
+               279]]}, {
+            3733411/714984 + (9361 $CellContext`x1)/5766 - (
+              511 $CellContext`x2)/372 - (69 $CellContext`x1 $CellContext`x2)/
+             62 - (375 $CellContext`x2^2)/248, 
+             And[$CellContext`x1 == 70/279, 
+              
+              Inequality[(-337)/279, Less, $CellContext`x2, Less, 383/
+               279]]}, {
+            126515965/14478426 + (431411 $CellContext`x1)/181629 - (
+              799 $CellContext`x2)/
+             217 - (1081 $CellContext`x1 $CellContext`x2)/
+             651 - (2209 $CellContext`x2^2)/1302, 
+             And[$CellContext`x1 == 70/279, 
+              Inequality[
+              383/279, LessEqual, $CellContext`x2, Less, 18757/13113]]}, {
+            12 + (92 $CellContext`x1)/31 + (188 $CellContext`x2)/31, 
+             Or[
+              And[$CellContext`x1 == 70/279, $CellContext`x2 == (-337)/279], 
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-11 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {
+            1825/186 - (391 $CellContext`x1)/217 - (529 $CellContext`x1^2)/
+             1302 - (799 $CellContext`x2)/
+             217 - (1081 $CellContext`x1 $CellContext`x2)/
+             651 - (2209 $CellContext`x2^2)/1302, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-11 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/
+                47]]]}, {
+            6075/434 + (1035 $CellContext`x1)/217 + (529 $CellContext`x1^2)/
+              1302 + (2115 $CellContext`x2)/
+              217 + (1081 $CellContext`x1 $CellContext`x2)/
+              651 + (2209 $CellContext`x2^2)/1302, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (-51 - 23 $CellContext`x1)/47]], 
+              
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, LessEqual, (-8 + 3 $CellContext`x1)/
+                6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, LessEqual, (-8 + 3 $CellContext`x1)/
+                6]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (-51 - 23 $CellContext`x1)/
+                47]]]}, {
+            93/14 + (155 $CellContext`x1)/28 + (775 $CellContext`x1^2)/
+              672 + (31 $CellContext`x2)/
+              14 + (155 $CellContext`x1 $CellContext`x2)/
+              168 + (31 $CellContext`x2^2)/168, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-442)/279], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               
+               Inequality[(-442)/279, LessEqual, $CellContext`x1, 
+                LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]]]}, {
+            144/31 + (463 $CellContext`x1)/124 + (741 $CellContext`x1^2)/
+              992 - (91 $CellContext`x2)/
+             62 - (183 $CellContext`x1 $CellContext`x2)/
+             248 - (375 $CellContext`x2^2)/248, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-442)/279], 
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               
+               Inequality[(-442)/279, LessEqual, $CellContext`x1, 
+                LessEqual, (-14)/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (4 - 5 $CellContext`x1)/2]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}}, 0])/
+        16, $CellContext`pDet = (
+         Piecewise[{{
+            4 (2 + (-31 + 23 $CellContext`x1 + 47 $CellContext`x2)/21), 
+             Or[
+              And[$CellContext`x1 > 10/9, 
+               
+               Inequality[(-11 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, LessEqual, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (73 - 23 $CellContext`x1)/47]]]}, {16, 
+             Or[
+              
+              And[$CellContext`x1 > 
+               10/9, $CellContext`x2 >= (73 - 23 $CellContext`x1)/47], 
+              And[
+               
+               Inequality[(-62)/3, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], $CellContext`x2 >= (11 - 4 $CellContext`x1)/7], 
+              And[
+               Inequality[
+               2/9, Less, $CellContext`x1, LessEqual, 10/
+                9], $CellContext`x2 >= (73 - 23 $CellContext`x1)/47], 
+              And[$CellContext`x1 < (-62)/
+                3, $CellContext`x2 > (11 - 4 $CellContext`x1)/7]]}, {
+            4 (2 + (-5 + 4 $CellContext`x1 + 7 $CellContext`x2)/3), 
+             Or[
+              And[
+               
+               Inequality[(-62)/3, LessEqual, $CellContext`x1, LessEqual, 2/
+                9], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, LessEqual, 10/9], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                LessEqual, (4 - 5 $CellContext`x1)/2]], 
+              
+              And[$CellContext`x1 < (-62)/
+                3, $CellContext`x2 == (11 - 4 $CellContext`x1)/7], 
+              And[$CellContext`x1 < (-62)/3, 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]]]}}, 0] + 
+         Piecewise[{{
+            29939/3000 + (182 $CellContext`x1)/75 + (469 $CellContext`x2)/
+              60 + (6 $CellContext`x1 $CellContext`x2)/
+              5 + (57 $CellContext`x2^2)/40, 
+             And[$CellContext`x1 == (-62)/45, 
+              Inequality[(-91)/45, Less, $CellContext`x2, Less, 29/45]]}, {
+            1153879/60750 + (2972 $CellContext`x1)/675 - (21 $CellContext`x2)/
+             5 - (28 $CellContext`x1 $CellContext`x2)/
+             15 - (49 $CellContext`x2^2)/30, 
+             And[$CellContext`x1 == (-62)/45, 
+              Inequality[29/45, Less, $CellContext`x2, Less, 743/315]]}, {
+            35/6 - (25 $CellContext`x1)/4 - (125 $CellContext`x1^2)/
+             96 - (5 $CellContext`x2)/
+             2 - (25 $CellContext`x1 $CellContext`x2)/
+             24 - (5 $CellContext`x2^2)/24, 
+             Or[
+              And[
+               Inequality[(-62)/45, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}, {
+            147/10 + (28 $CellContext`x1)/5 + (8 $CellContext`x1^2)/
+              15 + (49 $CellContext`x2)/
+              5 + (28 $CellContext`x1 $CellContext`x2)/
+              15 + (49 $CellContext`x2^2)/30, 
+             Or[
+              And[
+               
+               Inequality[(-182)/45, LessEqual, $CellContext`x1, 
+                LessEqual, (-22)/9], 
+               
+               Inequality[(-21 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (-9 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-21 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                LessEqual, (-12 - 5 $CellContext`x1)/2]], 
+              And[$CellContext`x1 < (-182)/45, 
+               
+               Inequality[(-21 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                LessEqual, (-9 - 4 $CellContext`x1)/7]]]}, {
+            36/5 - (13 $CellContext`x1)/20 - (123 $CellContext`x1^2)/
+             160 + (73 $CellContext`x2)/
+              10 + (33 $CellContext`x1 $CellContext`x2)/
+              40 + (57 $CellContext`x2^2)/40, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, Less, (-62)/45], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-62)/45, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]]]}, {
+            12 + (16 $CellContext`x1)/5 + (28 $CellContext`x2)/5, 
+             Or[
+              And[$CellContext`x1 == (-62)/45, $CellContext`x2 == 29/45], 
+              And[
+               
+               Inequality[(-182)/45, LessEqual, $CellContext`x1, 
+                LessEqual, (-22)/9], 
+               
+               Inequality[(-9 - 4 $CellContext`x1)/7, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, Less, (-62)/45], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]], 
+              And[$CellContext`x1 < (-182)/45, 
+               
+               Inequality[(-9 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                LessEqual, (-1 - 4 $CellContext`x1)/7]]]}, {
+            319/30 - (12 $CellContext`x1)/5 - (8 $CellContext`x1^2)/
+             15 - (21 $CellContext`x2)/
+             5 - (28 $CellContext`x1 $CellContext`x2)/
+             15 - (49 $CellContext`x2^2)/30, 
+             Or[
+              And[
+               
+               Inequality[(-182)/45, LessEqual, $CellContext`x1, 
+                LessEqual, (-22)/9], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, LessEqual, (-14)/9], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, Less, (-62)/45], 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]], 
+              And[
+               Inequality[(-62)/45, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(8 + 3 $CellContext`x1)/6, 
+                LessEqual, $CellContext`x2, Less, (11 - 4 $CellContext`x1)/
+                7]], 
+              And[$CellContext`x1 < (-182)/45, 
+               
+               Inequality[(-1 - 4 $CellContext`x1)/7, Less, $CellContext`x2, 
+                Less, (11 - 4 $CellContext`x1)/7]]]}}, 0] + 
+         Piecewise[{{
+            1416060125/101348982 + (903325 $CellContext`x1)/
+              181629 + (2115 $CellContext`x2)/
+              217 + (1081 $CellContext`x1 $CellContext`x2)/
+              651 + (2209 $CellContext`x2^2)/1302, 
+             And[$CellContext`x1 == 70/279, 
+              
+              Inequality[(-39275)/13113, Less, $CellContext`x2, Less, (-337)/
+               279]]}, {
+            3733411/714984 + (9361 $CellContext`x1)/5766 - (
+              511 $CellContext`x2)/372 - (69 $CellContext`x1 $CellContext`x2)/
+             62 - (375 $CellContext`x2^2)/248, 
+             And[$CellContext`x1 == 70/279, 
+              
+              Inequality[(-337)/279, Less, $CellContext`x2, Less, 383/
+               279]]}, {
+            126515965/14478426 + (431411 $CellContext`x1)/181629 - (
+              799 $CellContext`x2)/
+             217 - (1081 $CellContext`x1 $CellContext`x2)/
+             651 - (2209 $CellContext`x2^2)/1302, 
+             And[$CellContext`x1 == 70/279, 
+              Inequality[
+              383/279, LessEqual, $CellContext`x2, Less, 18757/13113]]}, {
+            12 + (92 $CellContext`x1)/31 + (188 $CellContext`x2)/31, 
+             Or[
+              And[$CellContext`x1 == 70/279, $CellContext`x2 == (-337)/279], 
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-11 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (-8 + 3 $CellContext`x1)/6]]]}, {
+            1825/186 - (391 $CellContext`x1)/217 - (529 $CellContext`x1^2)/
+             1302 - (799 $CellContext`x2)/
+             217 - (1081 $CellContext`x1 $CellContext`x2)/
+             651 - (2209 $CellContext`x2^2)/1302, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-11 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (73 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(4 - 5 $CellContext`x1)/2, 
+                LessEqual, $CellContext`x2, Less, (73 - 23 $CellContext`x1)/
+                47]]]}, {
+            6075/434 + (1035 $CellContext`x1)/217 + (529 $CellContext`x1^2)/
+              1302 + (2115 $CellContext`x2)/
+              217 + (1081 $CellContext`x1 $CellContext`x2)/
+              651 + (2209 $CellContext`x2^2)/1302, 
+             Or[
+              And[$CellContext`x1 >= 10/9, 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (-51 - 23 $CellContext`x1)/47]], 
+              
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, LessEqual, (-8 + 3 $CellContext`x1)/
+                6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, LessEqual, (-8 + 3 $CellContext`x1)/
+                6]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-135 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (-51 - 23 $CellContext`x1)/
+                47]]]}, {
+            93/14 + (155 $CellContext`x1)/28 + (775 $CellContext`x1^2)/
+              672 + (31 $CellContext`x2)/
+              14 + (155 $CellContext`x1 $CellContext`x2)/
+              168 + (31 $CellContext`x2^2)/168, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-442)/279], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                LessEqual, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               
+               Inequality[(-442)/279, LessEqual, $CellContext`x1, 
+                LessEqual, (-14)/9], 
+               
+               Inequality[(-12 - 5 $CellContext`x1)/2, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (-51 - 23 $CellContext`x1)/47]]]}, {
+            144/31 + (463 $CellContext`x1)/124 + (741 $CellContext`x1^2)/
+              992 - (91 $CellContext`x2)/
+             62 - (183 $CellContext`x1 $CellContext`x2)/
+             248 - (375 $CellContext`x2^2)/248, 
+             Or[
+              And[
+               Inequality[(-22)/9, Less, $CellContext`x1, Less, (-442)/279], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                Less, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               
+               Inequality[(-442)/279, LessEqual, $CellContext`x1, 
+                LessEqual, (-14)/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[(-14)/9, Less, $CellContext`x1, LessEqual, 2/9], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, Less, (8 + 3 $CellContext`x1)/6]], 
+              And[
+               Inequality[2/9, Less, $CellContext`x1, Less, 70/279], 
+               
+               Inequality[(-51 - 23 $CellContext`x1)/47, 
+                LessEqual, $CellContext`x2, 
+                LessEqual, (4 - 5 $CellContext`x1)/2]], 
+              And[
+               Inequality[70/279, Less, $CellContext`x1, Less, 10/9], 
+               
+               Inequality[(-8 + 3 $CellContext`x1)/6, Less, $CellContext`x2, 
+                Less, (4 - 5 $CellContext`x1)/2]]]}}, 0])/16}; 
+     Typeset`initDone$$ = True),
     SynchronousInitialization->True,
     UnsavedVariables:>{Typeset`initDone$$},
     UntrackedVariables:>{Typeset`size$$}], "Manipulate",
@@ -8882,9 +10166,9 @@ v/nDDLP8ZY55FlhkiWVWWGWNdf6xwSZbbLPDf3bZYx/bzl8p
     Scaled[0.02]}]], "Output", "PluginEmbeddedContent"]
 }, Open  ]]
 },
-WindowSize->{730.9833333333333, 3398.8199999999997`},
+WindowSize->{730.9833333333333, 3402.62},
 Visible->True,
-AuthoredSize->{730.9833333333333, 3398.8199999999997`},
+AuthoredSize->{730.9833333333333, 3402.62},
 ScrollingOptions->{"HorizontalScrollRange"->Fit,
 "VerticalScrollRange"->Fit},
 ShowCellBracket->False,
@@ -8918,27 +10202,29 @@ Cell[8910, 272, 108225, 1745, 252, "Output"]
 }, Open  ]],
 Cell[117150, 2020, 180, 3, 35, "Text"],
 Cell[CellGroupData[{
-Cell[117355, 2027, 3057, 89, 173, "Input"],
-Cell[120415, 2118, 2596, 53, 327, "Output"]
+Cell[117355, 2027, 3114, 90, 201, "Input"],
+Cell[120472, 2119, 20213, 428, 327, "Output"]
 }, Open  ]],
-Cell[123026, 2174, 117, 2, 16, "Text"],
+Cell[140700, 2550, 117, 2, 16, "Text"],
 Cell[CellGroupData[{
-Cell[123168, 2180, 1002, 31, 48, "Input"],
-Cell[124173, 2213, 78958, 1768, 359, "Output"]
+Cell[140842, 2556, 1002, 31, 48, "Input"],
+Cell[141847, 2589, 78958, 1768, 359, "Output"]
 }, Open  ]],
-Cell[203146, 3984, 1115, 29, 135, "Text"],
-Cell[204264, 4015, 5124, 160, 284, "Input"],
-Cell[209391, 4177, 1429, 52, 122, "Text"],
-Cell[210823, 4231, 1122, 36, 73, "Input"],
-Cell[211948, 4269, 169, 3, 16, "Text"],
+Cell[220820, 4360, 1115, 29, 135, "Text"],
+Cell[221938, 4391, 5151, 161, 284, "Input",
+ InitializationCell->True],
+Cell[227092, 4554, 1429, 52, 122, "Text"],
+Cell[228524, 4608, 1149, 37, 73, "Input",
+ InitializationCell->True],
+Cell[229676, 4647, 169, 3, 16, "Text"],
 Cell[CellGroupData[{
-Cell[212142, 4276, 3648, 105, 116, "Input"],
-Cell[215793, 4383, 3184, 68, 367, "Output"]
+Cell[229870, 4654, 3705, 106, 133, "Input"],
+Cell[233578, 4762, 45599, 973, 327, "Output"]
 }, Open  ]],
-Cell[218992, 4454, 346, 6, 54, "Text"],
+Cell[279192, 5738, 346, 6, 54, "Text"],
 Cell[CellGroupData[{
-Cell[219363, 4464, 1580, 47, 65, "Input"],
-Cell[220946, 4513, 194932, 4368, 359, "Output"]
+Cell[279563, 5748, 1580, 47, 65, "Input"],
+Cell[281146, 5797, 194932, 4368, 359, "Output"]
 }, Open  ]]
 }
 ]
@@ -8946,4 +10232,4 @@ Cell[220946, 4513, 194932, 4368, 359, "Output"]
 
 (* End of internal cache information *)
 
-(* NotebookSignature 7upV7rSRLJl4WDgovLdLQV0O *)
+(* NotebookSignature wuD2X8Z#DngxaCKVrGQnrHhn *)

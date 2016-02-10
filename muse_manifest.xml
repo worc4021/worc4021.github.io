@@ -1,14 +1,14 @@
-<manifest alg="2" build="2015.1.0.342" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="worc4021.github.io" resolutions="1x" timestamp="1455106337655">
+<manifest alg="2" build="2015.1.0.342" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="worc4021.github.io" resolutions="1x" timestamp="1455109371477">
   <folder name="css">
     <file name="site_global.css" crc="131700929"/>
-    <file name="master_a-master.css" crc="4073050127" ref="about:examples:links:index:mathematica"/>
-    <file name="nomq_preview_master_a-master.css" crc="3902085367" ref="about:examples:links:index:mathematica"/>
+    <file name="master_a-master.css" crc="4245988573" ref="about:examples:links:index:mathematica"/>
+    <file name="nomq_preview_master_a-master.css" crc="3902085367" ref="about:examples:links:index"/>
     <file name="about.css" crc="236622689" ref="about"/>
     <file name="examples.css" crc="236622689" ref="examples"/>
     <file name="links.css" crc="236622689" ref="links"/>
     <file name="index.css" crc="146038644" ref="index"/>
     <file name="nomq_index.css" crc="137715627" ref="index"/>
-    <file name="mathematica.css" crc="3964249553" ref="mathematica"/>
+    <file name="mathematica.css" crc="4030205585" ref="mathematica"/>
   </folder>
   <folder name="scripts">
     <file name="jquery-1.8.3.min.js" crc="409338010" ref="index:about:links:examples:mathematica"/>
@@ -20,11 +20,11 @@
     <file name="jquery.museresponsive.js" crc="408737887" ref="index"/>
   </folder>
   <folder name="images">
-    <file name="arrowmenudown.png" crc="262559161" ref="index:about"/>
+    <file name="arrowmenudown.png" crc="262559161" ref="index:about:mathematica"/>
   </folder>
   <file name="index.html" crc="3835092661" seo="true" mt="1455106335945" redirect="true"/>
   <file name="about.html" crc="330826244" seo="true" mt="1455106335945" redirect="true"/>
   <file name="links.html" crc="3916294348" seo="true" mt="1455106335945" redirect="true"/>
   <file name="examples.html" crc="499454083" seo="true" mt="1455106335945" redirect="true"/>
-  <file name="mathematica.html" crc="388467680" seo="true" mt="1455106335945" redirect="true"/>
+  <file name="mathematica.html" crc="4112951259" seo="true" mt="1455109307003" redirect="true"/>
 </manifest>
