@@ -1,7 +1,7 @@
 .version.mathematica /* version checker */
 {
-	color: #000019;
-	background-color: #B9FB0C;
+	color: #0000EC;
+	background-color: #49A5D1;
 }
 
 #page
@@ -437,22 +437,30 @@
 	min-height: 35px;
 }
 
-#u833
+#u1266
 {
 	z-index: 38;
-	min-height: 3398px;
+	min-height: 100px;
 	border-width: 0px;
 	border-color: transparent;
 	background-color: transparent;
+	margin-top: 38px;
 	position: relative;
-	width: 60.84%;
-	margin-left: 19.59%;
+	width: 16.67%;
+	margin-left: 41.67%;
 	left: 0px;
 }
 
-#u262,#u262-bw
+#u262
 {
 	z-index: 2;
+	height: 33px;
+}
+
+#u262-bw
+{
+	z-index: 2;
+	margin-top: 294px;
 	height: 33px;
 }
 
