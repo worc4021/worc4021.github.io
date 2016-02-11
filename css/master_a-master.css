@@ -195,3 +195,21 @@
 }
 
 
+@media (min-width: 851px)
+{
+	#u779_align_to_page
+	{
+		max-width: 1200px;
+	}
+
+}
+
+@media (max-width: 850px)
+{
+	#u779_align_to_page
+	{
+		max-width: 850px;
+	}
+
+}
+
