@@ -1,4 +1,4 @@
-<manifest alg="2" build="2015.1.0.342" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="worc4021.github.io" resolutions="1x" timestamp="1455109371477">
+<manifest alg="2" build="2015.1.0.342" opt="true" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="worc4021.github.io" resolutions="1x" timestamp="1455109535713">
   <folder name="css">
     <file name="site_global.css" crc="131700929"/>
     <file name="master_a-master.css" crc="4245988573" ref="about:examples:links:index:mathematica"/>
@@ -8,7 +8,7 @@
     <file name="links.css" crc="236622689" ref="links"/>
     <file name="index.css" crc="146038644" ref="index"/>
     <file name="nomq_index.css" crc="137715627" ref="index"/>
-    <file name="mathematica.css" crc="4030205585" ref="mathematica"/>
+    <file name="mathematica.css" crc="4231926583" ref="mathematica"/>
   </folder>
   <folder name="scripts">
     <file name="jquery-1.8.3.min.js" crc="409338010" ref="index:about:links:examples:mathematica"/>
@@ -26,5 +26,5 @@
   <file name="about.html" crc="330826244" seo="true" mt="1455106335945" redirect="true"/>
   <file name="links.html" crc="3916294348" seo="true" mt="1455106335945" redirect="true"/>
   <file name="examples.html" crc="499454083" seo="true" mt="1455106335945" redirect="true"/>
-  <file name="mathematica.html" crc="4112951259" seo="true" mt="1455109307003" redirect="true"/>
+  <file name="mathematica.html" crc="4112951259" seo="true" mt="1455109523174" redirect="true"/>
 </manifest>

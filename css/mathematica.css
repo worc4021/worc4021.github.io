@@ -1,7 +1,7 @@
 .version.mathematica /* version checker */
 {
-	color: #0000F0;
-	background-color: #380E91;
+	color: #0000FC;
+	background-color: #3E1337;
 }
 
 #page
@@ -440,14 +440,15 @@
 #u1312
 {
 	z-index: 38;
+	width: 200px;
 	min-height: 100px;
 	border-width: 0px;
 	border-color: transparent;
 	background-color: transparent;
 	margin-top: 51px;
 	position: relative;
-	width: 16.67%;
-	margin-left: 41.67%;
+	margin-left: 50%;
+	left: -100px;
 }
 
 #u262
