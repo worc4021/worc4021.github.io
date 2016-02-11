@@ -6,8 +6,8 @@
 </description>
     <link>http://worc4021.github.io/</link>
     <atom:link href="http://worc4021.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 11 Feb 2016 17:32:46 +0000</pubDate>
-    <lastBuildDate>Thu, 11 Feb 2016 17:32:46 +0000</lastBuildDate>
+    <pubDate>Thu, 11 Feb 2016 18:06:57 +0000</pubDate>
+    <lastBuildDate>Thu, 11 Feb 2016 18:06:57 +0000</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -39,17 +39,13 @@
       </item>
     
       <item>
-        <title>This is my trial.</title>
-        <description>&lt;p&gt;And now let’s see what this does.&lt;/p&gt;
+        <title>Trying this out.</title>
+        <description>&lt;p&gt;This might look empty&lt;/p&gt;
 </description>
-        <pubDate>Thu, 11 Feb 2016 17:18:52 +0000</pubDate>
-        <link>http://worc4021.github.io/jekyll/update/2016/02/11/a-trial.html</link>
-        <guid isPermaLink="true">http://worc4021.github.io/jekyll/update/2016/02/11/a-trial.html</guid>
+        <pubDate>Thu, 11 Feb 2016 00:00:00 +0000</pubDate>
+        <link>http://worc4021.github.io/2016/02/11/trying-this-out.html</link>
+        <guid isPermaLink="true">http://worc4021.github.io/2016/02/11/trying-this-out.html</guid>
         
-        
-        <category>jekyll</category>
-        
-        <category>update</category>
         
       </item>
     
