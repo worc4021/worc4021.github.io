@@ -7,51 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>About</title>
-  <meta name="description" content="This is supposed to be helpful.
+  <meta name="description" content="Homepage of the GeoCalcLib, a Matlab interface for the LRS library.
 ">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://worc4021.github.io/about/">
-  <link rel="alternate" type="application/rss+xml" title="My glorious blog." href="http://worc4021.github.io/feed.xml">
-	<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
-    jax: ["input/TeX", "output/HTML-CSS"],
-    tex2jax: {
-    inlineMath: [
-                  ['$','$'], 
-                  ['\\(','\\)']
-                ],
-    displayMath: [
-                  ['$$','$$'], 
-                  ['\[','\]']
-                ],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  },
-  "HTML-CSS": { availableFonts: ["TeX"] }
-});
-</script>
-
-<!-- <script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    // Fix <code> tags after MathJax finishes running. This is a
-    // hack to overcome a shortcoming of Markdown. Discussion at
-    // https://github.com/mojombo/jekyll/issues/199
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-}); -->
-  </script>
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-	<link
-    href="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.css"
-    rel="stylesheet" type="text/css">
-	<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
+  <link rel="alternate" type="application/rss+xml" title="GeoCalcLib" href="http://worc4021.github.io/feed.xml">
 </head>
 
 
@@ -61,7 +22,7 @@ MathJax.Hub.Config({
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">My glorious blog.</a>
+    <a class="site-title" href="/">GeoCalcLib</a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -101,22 +62,8 @@ MathJax.Hub.Config({
   </header>
 
   <div class="post-content">
-    <p>My name is Rainer Manuel Schaich, I currently am a DPhil candidate at the Engineering Science Department of the University of Oxford. I try to illustrate what I work on here.</p>
+    <p>This page was created to facilitate the use of the GeoCalcLib</p>
 
-<!-- This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
-
-You can find the source code for the Jekyll new theme at:
-<a href="https://github.com/jglovier"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">jglovier</span></a>
- /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
-
-You can find the source code for Jekyll at
-<a href="https://github.com/jekyll"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
-</span><span class="username">jekyll</span></a>
- /
-[jekyll](https://github.com/jekyll/jekyll)
- -->
 
   </div>
 
@@ -129,12 +76,12 @@ You can find the source code for Jekyll at
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">My glorious blog.</h2>
+    <h2 class="footer-heading">GeoCalcLib</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li>My glorious blog.</li>
+          <li>GeoCalcLib</li>
           <li><a href="mailto:rainer.schaich@eng.ox.ac.uk">rainer.schaich@eng.ox.ac.uk</a></li>
         </ul>
       </div>
@@ -154,7 +101,7 @@ You can find the source code for Jekyll at
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>This is supposed to be helpful.
+        <p>Homepage of the GeoCalcLib, a Matlab interface for the LRS library.
 </p>
       </div>
     </div>
