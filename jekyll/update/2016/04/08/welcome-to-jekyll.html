@@ -140,6 +140,12 @@ and the desired installation directory <code class="highlighter-rouge">INSTALLDI
 <span class="c"># Path to which everything should be installed, has to be on Matlab path!
 </span><span class="nv">INSTALLDIR</span> <span class="o">=</span><span class="err"> /Users/Username/Documents/MATLAB/Functions</span></code></pre></figure>
 
+<p>If you do not yet have a directory on your Matlab path to store your functions and want to add one, run <code class="highlighter-rouge">edit startup</code> in Matlab and add</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">addpath</span><span class="p">(</span><span class="s1">'/absolute/path/to/your/directory'</span><span class="p">);</span></code></pre></figure>
+
+<p>or find <a href="http://uk.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html">alternative ways of setting up your path here</a>.</p>
+
 <p>Now you can run</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">make</code></pre></figure>

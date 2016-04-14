@@ -6,8 +6,8 @@
 </description>
     <link>http://worc4021.github.io/</link>
     <atom:link href="http://worc4021.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 14 Apr 2016 14:19:57 +0100</pubDate>
-    <lastBuildDate>Thu, 14 Apr 2016 14:19:57 +0100</lastBuildDate>
+    <pubDate>Thu, 14 Apr 2016 14:40:20 +0100</pubDate>
+    <lastBuildDate>Thu, 14 Apr 2016 14:40:20 +0100</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -837,6 +837,12 @@ and the desired installation directory &lt;code class=&quot;highlighter-rouge&qu
 
 &lt;span class=&quot;c&quot;&gt;# Path to which everything should be installed, has to be on Matlab path!
 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;INSTALLDIR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; /Users/Username/Documents/MATLAB/Functions&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you do not yet have a directory on your Matlab path to store your functions and want to add one, run &lt;code class=&quot;highlighter-rouge&quot;&gt;edit startup&lt;/code&gt; in Matlab and add&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;addpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/absolute/path/to/your/directory&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;or find &lt;a href=&quot;http://uk.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html&quot;&gt;alternative ways of setting up your path here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Now you can run&lt;/p&gt;
 
