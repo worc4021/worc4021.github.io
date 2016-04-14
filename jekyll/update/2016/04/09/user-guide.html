@@ -130,6 +130,8 @@ MathJax.Hub.Config({
   <li><code class="highlighter-rouge">projectPolyhedron()</code> does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.</li>
 </ol>
 
+<p>On top of the direct interface to the LRS library <code class="highlighter-rouge">createLRSfile()</code> and <code class="highlighter-rouge">readLRSfile()</code> are provided to write and read an LRS input file respectively.</p>
+
 <h1 id="facet-enumeration">Facet Enumeration</h1>
 
 <p>Generate a set of vertices:</p>
@@ -873,6 +875,35 @@ The function call <code class="highlighter-rouge">[Aout,bout] = projectPolyhedro
   </g>
   </g>
 </svg>
+
+<h1 id="writing-and-reading-lrs-input-files">Writing and reading LRS input files</h1>
+
+<p>Many LRS users might prefer to call the LRS executable directly in order to be able to see the output as it is obtained, rather than waiting for the entire solution to be returned. 
+For this purpose <code class="highlighter-rouge">createLRSfile('param1',param1,...)</code> is provided to generate a LRS input file from within the Matlab environment.</p>
+
+<p>The supported parameters are</p>
+
+<ul>
+  <li><code class="highlighter-rouge">fname</code> - specifies the file name of the LRS input file created, if omitted a file called <code class="highlighter-rouge">lrstest.ine</code> is created in the current directory.</li>
+  <li><code class="highlighter-rouge">rep</code> - <code class="highlighter-rouge">'V'</code> or <code class="highlighter-rouge">'H'</code> implying that the data is passed in a V- or H-representation respectively.</li>
+  <li>If <code class="highlighter-rouge">rep='V'</code> vertices are passed as the parameter <code class="highlighter-rouge">V</code> in a matrix <code class="highlighter-rouge">vdat</code> containing a vertex/ray in each row, optionally <code class="highlighter-rouge">Type</code> can be used to pass a vector of <code class="highlighter-rouge">1/0</code> such that <code class="highlighter-rouge">type(i) = 0</code> implies <code class="highlighter-rouge">vdat(i,:)</code> is a ray and <code class="highlighter-rouge">type(i) = 1</code> implies <code class="highlighter-rouge">vdat(i,:)</code> is a vertex.
+If <code class="highlighter-rouge">Type</code>is not specified all rows of <code class="highlighter-rouge">vdat</code> are assumed to be vertices.</li>
+  <li>If <code class="highlighter-rouge">rep='H'</code> the set of inequalities <script type="math/tex">\{x:A_{dat}x\leq b_{dat}\}</script> is passed by setting <code class="highlighter-rouge">A</code> to <code class="highlighter-rouge">Adat</code> and <code class="highlighter-rouge">b</code> to <code class="highlighter-rouge">bdat</code>.
+If <code class="highlighter-rouge">b</code> is omitted the set is assumed to be <script type="math/tex">\{x:A_{dat}x\leq{\bf{1}}\}</script></li>
+  <li>The optional parameter <code class="highlighter-rouge">tol</code> may be set to the desired conversion tolerance to a rational format, default <code class="highlighter-rouge">1e-12</code>.</li>
+</ul>
+
+<p>To create an LRS input file <code class="highlighter-rouge">myfile.ine</code> to vertex enumerate the <script type="math/tex">\ell_\infty</script> unit ball in two dimensions <script type="math/tex">\|x\|_\infty\leq 1</script> we would use</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="o">-</span><span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)];</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">ones</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">createLRSfile</span><span class="p">(</span><span class="s1">'rep'</span><span class="p">,</span><span class="s1">'H'</span><span class="p">,</span><span class="s1">'A'</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="s1">'fname'</span><span class="p">,</span><span class="s1">'myfile.ine'</span><span class="p">);</span></code></pre></figure>
+
+<p>Users who have produced results using the LRS executable wanting to import it into the Matlab environment would first change the head of the result file into an admissible LRS input file, i.e replace the <code class="highlighter-rouge">***** n rational</code> line by <code class="highlighter-rouge">m n rational</code>, where <code class="highlighter-rouge">m</code> and <code class="highlighter-rouge">n</code> are the number of rows and columns respectively. Then pass the <code class="highlighter-rouge">filename</code> to <code class="highlighter-rouge">readLRSfile('filename')</code>.</p>
+
+<p>To read in the result of a vertex enumeration in <code class="highlighter-rouge">myfile.ext</code>, i.e. the result is in V-representation, we would call</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="n">readLRSfile</span><span class="p">(</span><span class="s1">'myfile.ext'</span><span class="p">);</span></code></pre></figure>
 
   </div>
 

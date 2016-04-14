@@ -6,8 +6,8 @@
 </description>
     <link>http://worc4021.github.io/</link>
     <atom:link href="http://worc4021.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 10 Apr 2016 11:53:11 +0100</pubDate>
-    <lastBuildDate>Sun, 10 Apr 2016 11:53:11 +0100</lastBuildDate>
+    <pubDate>Thu, 14 Apr 2016 14:19:57 +0100</pubDate>
+    <lastBuildDate>Thu, 14 Apr 2016 14:19:57 +0100</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -25,6 +25,8 @@
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vertexReduction()&lt;/code&gt; produces an irredundant vertex/ray description of a polyhedron in vertex/ray description.&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;projectPolyhedron()&lt;/code&gt; does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;On top of the direct interface to the LRS library &lt;code class=&quot;highlighter-rouge&quot;&gt;createLRSfile()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;readLRSfile()&lt;/code&gt; are provided to write and read an LRS input file respectively.&lt;/p&gt;
 
 &lt;h1 id=&quot;facet-enumeration&quot;&gt;Facet Enumeration&lt;/h1&gt;
 
@@ -769,6 +771,35 @@ The function call &lt;code class=&quot;highlighter-rouge&quot;&gt;[Aout,bout] = 
   &lt;/g&gt;
   &lt;/g&gt;
 &lt;/svg&gt;
+
+&lt;h1 id=&quot;writing-and-reading-lrs-input-files&quot;&gt;Writing and reading LRS input files&lt;/h1&gt;
+
+&lt;p&gt;Many LRS users might prefer to call the LRS executable directly in order to be able to see the output as it is obtained, rather than waiting for the entire solution to be returned. 
+For this purpose &lt;code class=&quot;highlighter-rouge&quot;&gt;createLRSfile(&#39;param1&#39;,param1,...)&lt;/code&gt; is provided to generate a LRS input file from within the Matlab environment.&lt;/p&gt;
+
+&lt;p&gt;The supported parameters are&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fname&lt;/code&gt; - specifies the file name of the LRS input file created, if omitted a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;lrstest.ine&lt;/code&gt; is created in the current directory.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rep&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;V&#39;&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;H&#39;&lt;/code&gt; implying that the data is passed in a V- or H-representation respectively.&lt;/li&gt;
+  &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;rep=&#39;V&#39;&lt;/code&gt; vertices are passed as the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;V&lt;/code&gt; in a matrix &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat&lt;/code&gt; containing a vertex/ray in each row, optionally &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt; can be used to pass a vector of &lt;code class=&quot;highlighter-rouge&quot;&gt;1/0&lt;/code&gt; such that &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 0&lt;/code&gt; implies &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat(i,:)&lt;/code&gt; is a ray and &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 1&lt;/code&gt; implies &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat(i,:)&lt;/code&gt; is a vertex.
+If &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt;is not specified all rows of &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat&lt;/code&gt; are assumed to be vertices.&lt;/li&gt;
+  &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;rep=&#39;H&#39;&lt;/code&gt; the set of inequalities &lt;script type=&quot;math/tex&quot;&gt;\{x:A_{dat}x\leq b_{dat}\}&lt;/script&gt; is passed by setting &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Adat&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;bdat&lt;/code&gt;.
+If &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; is omitted the set is assumed to be &lt;script type=&quot;math/tex&quot;&gt;\{x:A_{dat}x\leq{\bf{1}}\}&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;The optional parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;tol&lt;/code&gt; may be set to the desired conversion tolerance to a rational format, default &lt;code class=&quot;highlighter-rouge&quot;&gt;1e-12&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To create an LRS input file &lt;code class=&quot;highlighter-rouge&quot;&gt;myfile.ine&lt;/code&gt; to vertex enumerate the &lt;script type=&quot;math/tex&quot;&gt;\ell_\infty&lt;/script&gt; unit ball in two dimensions &lt;script type=&quot;math/tex&quot;&gt;\|x\|_\infty\leq 1&lt;/script&gt; we would use&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;createLRSfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rep&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;H&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;A&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;b&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;fname&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;myfile.ine&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Users who have produced results using the LRS executable wanting to import it into the Matlab environment would first change the head of the result file into an admissible LRS input file, i.e replace the &lt;code class=&quot;highlighter-rouge&quot;&gt;***** n rational&lt;/code&gt; line by &lt;code class=&quot;highlighter-rouge&quot;&gt;m n rational&lt;/code&gt;, where &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; are the number of rows and columns respectively. Then pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;filename&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;readLRSfile(&#39;filename&#39;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To read in the result of a vertex enumeration in &lt;code class=&quot;highlighter-rouge&quot;&gt;myfile.ext&lt;/code&gt;, i.e. the result is in V-representation, we would call&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;readLRSfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;myfile.ext&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Sat, 09 Apr 2016 12:32:35 +0100</pubDate>
         <link>http://worc4021.github.io/jekyll/update/2016/04/09/user-guide.html</link>
