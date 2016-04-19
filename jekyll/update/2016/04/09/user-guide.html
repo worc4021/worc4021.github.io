@@ -128,6 +128,7 @@ MathJax.Hub.Config({
   <li><code class="highlighter-rouge">inequalityReduction()</code> produces an irredundant half space description for a polyhedron in half space description.</li>
   <li><code class="highlighter-rouge">vertexReduction()</code> produces an irredundant vertex/ray description of a polyhedron in vertex/ray description.</li>
   <li><code class="highlighter-rouge">projectPolyhedron()</code> does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.</li>
+  <li><code class="highlighter-rouge">LRS()</code> allows passing more data to the LRS engine to perform the vertex and facet enumeration. Allows passing parameters.</li>
 </ol>
 
 <p>On top of the direct interface to the LRS library <code class="highlighter-rouge">createLRSfile()</code> and <code class="highlighter-rouge">readLRSfile()</code> are provided to write and read an LRS input file respectively.</p>
@@ -876,6 +877,101 @@ The function call <code class="highlighter-rouge">[Aout,bout] = projectPolyhedro
   </g>
 </svg>
 
+<h1 id="vertex-and-facet-enumeration-with-lrs-parameters">Vertex and facet enumeration with LRS parameters</h1>
+
+<p>The functions <code class="highlighter-rouge">vertexEnumeration()</code> and <code class="highlighter-rouge">facetEnumeration()</code> perform a vertex and facet enumeration respectively for data that was preconditioned by the user.
+The <code class="highlighter-rouge">vertexEnumeration()</code> call requires the user to prepare a type vector if rays are present etc. and the <code class="highlighter-rouge">facetEnumeration()</code> call only treats inequality constrained sets.
+To exploit (almost) the full scope of possibilities the LRS engine offers the <code class="highlighter-rouge">LRS()</code> function is provided.</p>
+
+<p>The argument is a <code class="highlighter-rouge">struct</code> with the required field <code class="highlighter-rouge">'rep'</code> specifying whether a V- or an H-representation is passed.
+Each representation has its own arguments:</p>
+
+<p>Assume we want to facet enumerate the first quadrant, i.e. <script type="math/tex">P=\text{cone}\left\{\begin{pmatrix}1 \\\\ 0\end{pmatrix}, \begin{pmatrix}0 \\\\ 1\end{pmatrix} \right\}</script>, then we define the structure</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">s</span> <span class="o">=</span> <span class="nb">struct</span><span class="p">(</span><span class="s1">'rep'</span><span class="p">,</span><span class="s1">'V'</span><span class="p">,</span><span class="s1">'R'</span><span class="p">,</span><span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LRS</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span>
+
+     <span class="mi">0</span>    <span class="o">-</span><span class="mi">1</span>
+    <span class="o">-</span><span class="mi">1</span>     <span class="mi">0</span>
+
+
+<span class="n">b</span> <span class="o">=</span>
+
+     <span class="mi">0</span>
+     <span class="mi">0</span></code></pre></figure>
+
+<p>If we have <script type="math/tex">P = \text{cone}\left\{\begin{pmatrix}1 \\\\ 0\end{pmatrix}, \begin{pmatrix}0 \\\\ 1\end{pmatrix} \right\} \oplus \text{conv}\left\{\begin{pmatrix}1\\\\1 \end{pmatrix} \right\}</script> we set the additional field</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">s</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">LRS</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span>
+
+     <span class="mi">0</span>     <span class="mi">0</span>
+    <span class="o">-</span><span class="mi">1</span>     <span class="mi">0</span>
+     <span class="mi">0</span>    <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="n">b</span> <span class="o">=</span>
+
+     <span class="mi">1</span>
+    <span class="o">-</span><span class="mi">1</span>
+    <span class="o">-</span><span class="mi">1</span></code></pre></figure>
+
+<p>That is, if the <code class="highlighter-rouge">s.rep='V'</code> at least one of <code class="highlighter-rouge">s.V</code> or <code class="highlighter-rouge">s.R</code> has to be passed.</p>
+
+<p>Assume now that we want to vertex enumerate the 3-dimensional simplex <script type="math/tex">P = \{x:x_1\geq0,x_2\geq0,x_3\geq0,x_1+x_2+x_3=1\}</script>,
+that is the representation of <code class="highlighter-rouge">rep='H'</code></p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">s</span> <span class="o">=</span> <span class="nb">struct</span><span class="p">(</span><span class="s1">'rep'</span><span class="p">,</span><span class="s1">'H'</span><span class="p">,</span><span class="s1">'Aineq'</span><span class="p">,</span><span class="o">-</span><span class="nb">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="s1">'bineq'</span><span class="p">,</span><span class="nb">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="s1">'Aeq'</span><span class="p">,</span><span class="nb">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span><span class="s1">'beq'</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">LRS</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span>
+
+     <span class="mi">1</span>     <span class="mi">0</span>     <span class="mi">0</span>
+     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">0</span>
+     <span class="mi">0</span>     <span class="mi">0</span>     <span class="mi">1</span>
+
+
+<span class="n">t</span> <span class="o">=</span>
+
+     <span class="mi">1</span>
+     <span class="mi">1</span>
+     <span class="mi">1</span></code></pre></figure>
+
+<p>The interpretation of the output for a vertex enumeration is exactly the same as for <code class="highlighter-rouge">vertexEnumeration()</code> that is, <code class="highlighter-rouge">V(i,:)</code> is a vertex if <code class="highlighter-rouge">t(i)=1</code> and <code class="highlighter-rouge">V(i,:)</code> is a ray if <code class="highlighter-rouge">t(i)=0</code>.</p>
+
+<p>If <code class="highlighter-rouge">s.rep='H'</code> then <code class="highlighter-rouge">s.Aineq</code> and <code class="highlighter-rouge">s.bineq</code> are required, <code class="highlighter-rouge">s.Aeq</code> and <code class="highlighter-rouge">s.beq</code> are optional.</p>
+
+<p>In addition to the computational data parameters may be passed, so far <code class="highlighter-rouge">maxcobases</code>, <code class="highlighter-rouge">maxoutput</code> and <code class="highlighter-rouge">maxdepth</code> are accepted. See <a href="http://cgm.cs.mcgill.ca/%7Eavis/C/lrslib/USERGUIDE.html#Options">LRS options</a> for details.</p>
+
+<p>If we want to restrict the number of search depth in the vertex enumeration of a 12-dimensional cube, and further we also want to constrain the number of explored cobases and only need 5 vertices we would call</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">LRS</span><span class="p">(</span><span class="nb">struct</span><span class="p">(</span><span class="s1">'rep'</span><span class="p">,</span><span class="s1">'H'</span><span class="p">,</span><span class="s1">'Aineq'</span><span class="p">,[</span><span class="nb">eye</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span><span class="o">-</span><span class="nb">eye</span><span class="p">(</span><span class="mi">12</span><span class="p">)],</span><span class="s1">'bineq'</span><span class="p">,</span><span class="nb">ones</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="s1">'maxdepth'</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'maxcobases'</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="s1">'maxoutput'</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="n">V</span> <span class="o">=</span>
+
+    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>
+     <span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>
+    <span class="o">-</span><span class="mi">1</span>     <span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>
+     <span class="mi">1</span>     <span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>
+    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>     <span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>    <span class="o">-</span><span class="mi">1</span>
+
+
+<span class="n">t</span> <span class="o">=</span>
+
+     <span class="mi">1</span>
+     <span class="mi">1</span>
+     <span class="mi">1</span>
+     <span class="mi">1</span>
+     <span class="mi">1</span></code></pre></figure>
+
+<blockquote>
+  <p>Warning: Although this function has been thoroughly tested, there might be uncaught exceptions. 
+Matlab will immediately crash if you come across an uncaught exception.
+These exceptions have no numerical nature, but can occur when passing unaccepted data types <em>(passing cell arrays instead of arrays etc.</em>).
+Please test your code your function calls before calling this function in an automated environment!</p>
+</blockquote>
+
 <h1 id="writing-and-reading-lrs-input-files">Writing and reading LRS input files</h1>
 
 <p>Many LRS users might prefer to call the LRS executable directly in order to be able to see the output as it is obtained, rather than waiting for the entire solution to be returned. 
@@ -904,6 +1000,7 @@ If <code class="highlighter-rouge">b</code> is omitted the set is assumed to be 
 <p>To read in the result of a vertex enumeration in <code class="highlighter-rouge">myfile.ext</code>, i.e. the result is in V-representation, we would call</p>
 
 <figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="n">readLRSfile</span><span class="p">(</span><span class="s1">'myfile.ext'</span><span class="p">);</span></code></pre></figure>
+
 
   </div>
 
