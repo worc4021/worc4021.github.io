@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Installing the GeoCalcLib</title>
-  <meta name="description" content="The LRS library works on both Mac and Linux and can be made to work on Windows.">
+  <meta name="description" content="  Warning: There are no guarantees for the robustness of the GeoCalcLib!Please report any malfunction.">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://worc4021.github.io/jekyll/update/2016/04/08/welcome-to-jekyll.html">
@@ -116,7 +116,12 @@ MathJax.Hub.Config({
         src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
   <div class="post-content" itemprop="articleBody">
-    <p>The <a href="http://cgm.cs.mcgill.ca/~avis/C/lrs.html">LRS library</a> works on both Mac and Linux and can be made to work on Windows.</p>
+    <blockquote>
+  <p>Warning: There are no guarantees for the robustness of the GeoCalcLib!
+Please report any malfunction.</p>
+</blockquote>
+
+<p>The <a href="http://cgm.cs.mcgill.ca/~avis/C/lrs.html">LRS library</a> works on both Mac and Linux and can be made to work on Windows.</p>
 
 <p>In order to work you will need the <a href="https://gmplib.org">GMP Library</a> installed on your system. 
 During the build of the GMP library, make sure you install it with the same ABI as your Matlab, i.e. if you have a 64-bit Matlab make sure you select <code class="highlighter-rouge">ABI=64</code> during your build. 

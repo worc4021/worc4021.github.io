@@ -6,13 +6,18 @@
 </description>
     <link>http://worc4021.github.io/</link>
     <atom:link href="http://worc4021.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 27 Apr 2016 20:08:40 +0100</pubDate>
-    <lastBuildDate>Wed, 27 Apr 2016 20:08:40 +0100</lastBuildDate>
+    <pubDate>Wed, 27 Apr 2016 20:33:32 +0100</pubDate>
+    <lastBuildDate>Wed, 27 Apr 2016 20:33:32 +0100</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
-        <title>Examples</title>
-        <description>&lt;p&gt;The permutahedron&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;script type=&quot;math/tex&quot;&gt;\Pi_{d-1}\subseteq\mathbb R^d&lt;/script&gt; is given by the convex hull of all permutations of the coordinates of&lt;/p&gt;
+        <title>Example</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Warning: There are no guarantees for the robustness of the GeoCalcLib!
+Please report any malfunction.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The permutahedron&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;script type=&quot;math/tex&quot;&gt;\Pi_{d-1}\subseteq\mathbb R^d&lt;/script&gt; is given by the convex hull of all permutations of the coordinates of&lt;/p&gt;
 
 &lt;p&gt;\begin{equation}
 \begin{pmatrix} 1 \\ 2 \\ \vdots \\ d \end{pmatrix}
@@ -635,7 +640,12 @@ H = \{\begin{pmatrix} 1 &amp; 2 &amp; 3 &amp;15 \end{pmatrix}x=1\} %]]&gt;&lt;/s
     
       <item>
         <title>User Guide</title>
-        <description>&lt;p&gt;The GeoCalcLib provides five different wrappers to call the LRS routines:&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Warning: There are no guarantees for the robustness of the GeoCalcLib!
+Please report any malfunction.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The GeoCalcLib provides five different wrappers to call the LRS routines:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -1534,7 +1544,12 @@ If &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; is omitted the
     
       <item>
         <title>Installing the GeoCalcLib</title>
-        <description>&lt;p&gt;The &lt;a href=&quot;http://cgm.cs.mcgill.ca/~avis/C/lrs.html&quot;&gt;LRS library&lt;/a&gt; works on both Mac and Linux and can be made to work on Windows.&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Warning: There are no guarantees for the robustness of the GeoCalcLib!
+Please report any malfunction.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://cgm.cs.mcgill.ca/~avis/C/lrs.html&quot;&gt;LRS library&lt;/a&gt; works on both Mac and Linux and can be made to work on Windows.&lt;/p&gt;
 
 &lt;p&gt;In order to work you will need the &lt;a href=&quot;https://gmplib.org&quot;&gt;GMP Library&lt;/a&gt; installed on your system. 
 During the build of the GMP library, make sure you install it with the same ABI as your Matlab, i.e. if you have a 64-bit Matlab make sure you select &lt;code class=&quot;highlighter-rouge&quot;&gt;ABI=64&lt;/code&gt; during your build. 
