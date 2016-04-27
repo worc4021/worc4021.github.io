@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GeoCalcLib</title>
+    <description>Homepage of the GeoCalcLib, a Matlab interface for the LRS library.
+</description>
+    <link>http://worc4021.github.io/</link>
+    <atom:link href="http://worc4021.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 27 Apr 2016 17:35:35 +0100</pubDate>
+    <lastBuildDate>Wed, 27 Apr 2016 17:35:35 +0100</lastBuildDate>
+    <generator>Jekyll v3.1.1</generator>
+    
+      <item>
+        <title>Examples</title>
+        <description>
+</description>
+        <pubDate>Wed, 27 Apr 2016 17:31:35 +0100</pubDate>
+        <link>http://worc4021.github.io/jekyll/update/2016/04/27/direct-lrscall.html</link>
+        <guid isPermaLink="true">http://worc4021.github.io/jekyll/update/2016/04/27/direct-lrscall.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>User Guide</title>
+        <description>&lt;p&gt;The GeoCalcLib provides five different wrappers to call the LRS routines:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration()&lt;/code&gt; calculates a half space description for the provides vertex/ray description.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt;calculates a vertex description for the provided half space description.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inequalityReduction()&lt;/code&gt; produces an irredundant half space description for a polyhedron in half space description.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vertexReduction()&lt;/code&gt; produces an irredundant vertex/ray description of a polyhedron in vertex/ray description.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;projectPolyhedron()&lt;/code&gt; does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LRS()&lt;/code&gt; allows passing more data to the LRS engine to perform the vertex and facet enumeration. Allows passing parameters.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;On top of the direct interface to the LRS library &lt;code class=&quot;highlighter-rouge&quot;&gt;createLRSfile()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;readLRSfile()&lt;/code&gt; are provided to write and read an LRS input file respectively.&lt;/p&gt;
+
+&lt;h1 id=&quot;facet-enumeration&quot;&gt;Facet Enumeration&lt;/h1&gt;
+
+&lt;p&gt;Generate a set of vertices:&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+V = \left(\begin{array}{c}
+	v_1^T \\[0em]
+	v_2^T \\[0em]
+	\vdots
+	\end{array}\right)
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;For example &lt;script type=&quot;math/tex&quot;&gt;P = \text{conv}\left\{\left(\begin{array}{c} 1 \\\\[0em] 0 \end{array}\right),\left(\begin{array}{c} 0 \\\\[0em] 1 \end{array}\right), \left(\begin{array}{c} -1 \\\\[0em] 0 \end{array}\right), \left(\begin{array}{c} 0 \\\\[0em] -1 \end{array}\right)\right\}&lt;/script&gt; translates to&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;    &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can produce a plot of the polytope &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; using&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;	&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;convhull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+	&lt;span class=&quot;nb&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;svg preserveaspectratio=&quot;xMinYMin meet&quot; width=&quot;100%&quot; height=&quot;100%&quot; viewbox=&quot;0 0 700.000 525.000&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+  &lt;desc&gt;Matlab Figure Converted by PLOT2SVG written by Juerg Schwizer&lt;/desc&gt;
+  &lt;g id=&quot;topgroup&quot;&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;700.000&quot; height=&quot;525.000&quot; fill=&quot;#ffffff&quot; stroke=&quot;none&quot; /&gt;
+  &lt;g id=&quot;ID000000&quot;&gt;
+  &lt;clippath id=&quot;ID000001&quot;&gt;
+    &lt;rect x=&quot;91.000&quot; y=&quot;39.375&quot; width=&quot;542.500&quot; height=&quot;427.875&quot; /&gt;
+  &lt;/clippath&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 633.500,467.250 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,39.375 633.500,39.375 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 91.000,467.250 91.000,39.375 91.000,39.375 &quot; /&gt;
+    &lt;g&gt;
+&lt;g id=&quot;ID000002&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000003&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000004&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000005&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#ff0000&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;633.500,253.312 362.250,39.375 91.000,253.312 362.250,467.250 633.500,253.312 &quot; /&gt;
+&lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,467.25000 145.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,467.25000 199.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,467.25000 253.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,467.25000 308.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,467.25000 362.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,467.25000 416.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,467.25000 470.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,467.25000 525.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,467.25000 579.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 633.50000,467.25000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,39.37500 145.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,39.37500 199.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,39.37500 253.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,39.37500 308.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,39.37500 362.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,39.37500 416.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,39.37500 470.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,39.37500 525.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,39.37500 579.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,39.37500 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(91.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(145.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(199.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(253.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(308.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(362.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(416.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(470.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(525.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(579.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(633.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,424.46250 96.42500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,381.67500 96.42500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,338.88750 96.42500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,296.10000 96.42500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,253.31250 96.42500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,210.52500 96.42500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,167.73750 96.42500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,124.95000 96.42500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,82.16250 96.42500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,424.46250 628.07500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,381.67500 628.07500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,338.88750 628.07500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,296.10000 628.07500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,253.31250 628.07500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,210.52500 628.07500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,167.73750 628.07500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,124.95000 628.07500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,82.16250 628.07500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,467.25000 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(80.150,471.750)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,428.963)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,386.175)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,343.387)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,300.600)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;-0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,257.812)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,215.025)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,172.237)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,129.450)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,86.662)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,43.875)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,462.97125 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,467.25000 &quot; /&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;p&gt;The H-representation of &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt; is trivially obtained as&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+P = \left\{x\in\mathbb R^2 : \begin{pmatrix}
+1 &amp;amp; 1 \\[0em]
+-1 &amp;amp; 1 \\[0em]
+1 &amp;amp; -1 \\[0em]
+-1 &amp;amp; -1
+\end{pmatrix} x \leq \begin{pmatrix} 1 \\[0em] 1 \\[0em] 1 \\[0em] 1 \end{pmatrix} \right\}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;This can result is obtained by calling &lt;code class=&quot;highlighter-rouge&quot;&gt;[A,b] = facetEnumeration(V)&lt;/code&gt;. Called with one argument &lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration(V)&lt;/code&gt; assumes that all rows in &lt;code class=&quot;highlighter-rouge&quot;&gt;V&lt;/code&gt; are vertices.&lt;/p&gt;
+
+&lt;p&gt;If rays are present, an additional vector &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; must be provided&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;facetEnumeration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;each row in &lt;code class=&quot;highlighter-rouge&quot;&gt;type&lt;/code&gt; is either &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 1&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;V(i,:)&lt;/code&gt; is a vertex or &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 0&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;V(i,:)&lt;/code&gt; is a ray.
+&lt;code class=&quot;highlighter-rouge&quot;&gt;[A,b] = facetEnumeration(V,ones(size(V,1),1))&lt;/code&gt; produces the same result as &lt;code class=&quot;highlighter-rouge&quot;&gt;[A,b]=facetEnumeration(V)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;vertex-enumeration&quot;&gt;Vertex Enumeration&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt; function produces a vertex/ray representation for a given polyhedron &lt;script type=&quot;math/tex&quot;&gt;P = \left\{x:Ax\leq b\right\}&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assume we want to understand the epigraph &lt;script type=&quot;math/tex&quot;&gt;\text{epi}(\varphi)&lt;/script&gt; of the piecewise affine function &lt;script type=&quot;math/tex&quot;&gt;\varphi(x) = \max\{x+1,2x,3x-4\}&lt;/script&gt;
+for &lt;script type=&quot;math/tex&quot;&gt;x\in[0,5]&lt;/script&gt;.
+The epigraph is given by&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+\text{epi}(\varphi) = \left\{ (x,t) : 0\leq x\leq 5, x+1\leq t, 2x \leq t, 3x-4\leq t
+\right\}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;\begin{equation}
+A = \begin{pmatrix}
+	1 &amp;amp;   -1\\[0em]
+     2 &amp;amp;   -1\\[0em]
+     3 &amp;amp;   -1\\[0em]
+     1  &amp;amp;   0\\[0em]
+    -1  &amp;amp;   0
+\end{pmatrix}
+, b = \begin{pmatrix}-1 \\[0em] 0 \\[0em] 4 \\[0em] 5 \\[0em] 0
+\end{pmatrix}
+\end{equation}&lt;/p&gt;
+
+&lt;p&gt;Using this as an input&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertexEnumeration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;    &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;we obtain the vertices and rays generating the epigraph.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;logical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;logical&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;svg preserveaspectratio=&quot;xMinYMin meet&quot; width=&quot;100%&quot; height=&quot;100%&quot; viewbox=&quot;0 0 700.000 525.000&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+  &lt;desc&gt;Matlab Figure Converted by PLOT2SVG written by Juerg Schwizer&lt;/desc&gt;
+  &lt;g id=&quot;topgroup&quot;&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;700.000&quot; height=&quot;525.000&quot; fill=&quot;#ffffff&quot; stroke=&quot;none&quot; /&gt;
+  &lt;g id=&quot;ID000000&quot;&gt;
+  &lt;clippath id=&quot;ID000001&quot;&gt;
+    &lt;rect x=&quot;91.000&quot; y=&quot;39.375&quot; width=&quot;542.500&quot; height=&quot;427.875&quot; /&gt;
+  &lt;/clippath&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 633.500,467.250 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,39.375 633.500,39.375 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 91.000,467.250 91.000,39.375 91.000,39.375 &quot; /&gt;
+    &lt;g&gt;
+&lt;g id=&quot;ID000002&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000003&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000004&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000005&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#0071bc&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 199.50000,424.46250 525.00000,167.73750 633.50000,39.37500 &quot; /&gt;
+&lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,467.25000 145.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,467.25000 199.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,467.25000 253.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,467.25000 308.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,467.25000 362.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,467.25000 416.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,467.25000 470.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,467.25000 525.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,467.25000 579.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 633.50000,467.25000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,39.37500 145.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,39.37500 199.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,39.37500 253.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,39.37500 308.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,39.37500 362.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,39.37500 416.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,39.37500 470.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,39.37500 525.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,39.37500 579.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,39.37500 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(91.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(145.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(199.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(253.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1.5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(308.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(362.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;2.5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(416.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;3&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(470.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;3.5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(525.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(579.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(633.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,424.46250 96.42500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,381.67500 96.42500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,338.88750 96.42500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,296.10000 96.42500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,253.31250 96.42500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,210.52500 96.42500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,167.73750 96.42500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,124.95000 96.42500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,82.16250 96.42500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,424.46250 628.07500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,381.67500 628.07500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,338.88750 628.07500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,296.10000 628.07500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,253.31250 628.07500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,210.52500 628.07500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,167.73750 628.07500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,124.95000 628.07500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,82.16250 628.07500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,467.25000 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(80.150,471.750)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,428.963)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,386.175)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;3&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,343.388)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,300.600)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,257.812)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,215.025)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;7&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,172.238)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,129.450)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;9&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,86.662)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;10&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,43.875)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;11&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,462.97125 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,467.25000 &quot; /&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;h1 id=&quot;inequality-reduction&quot;&gt;Inequality Reduction&lt;/h1&gt;
+
+&lt;p&gt;The call &lt;code class=&quot;highlighter-rouge&quot;&gt;[Aout,bout] = inequalityReduction(Ain,bin)&lt;/code&gt; returns an irredundant H-representation of &lt;script type=&quot;math/tex&quot;&gt;P = \{x: A_{in}x\leq b_{in}\}&lt;/script&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;vertex-reduction&quot;&gt;Vertex Reduction&lt;/h1&gt;
+
+&lt;p&gt;The call &lt;code class=&quot;highlighter-rouge&quot;&gt;[Vout,tout] = vertexReduction(Vin,tin)&lt;/code&gt; returns an irredundant V-representation of &lt;script type=&quot;math/tex&quot;&gt;P = \text{conv}\{v_{i}\}\oplus \text{cone}\{r_{i}\}&lt;/script&gt; where the vertices in &lt;code class=&quot;highlighter-rouge&quot;&gt;Vin&lt;/code&gt; are passed by setting &lt;code class=&quot;highlighter-rouge&quot;&gt;tin(i) = 1&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;Vin(i,:)&lt;/code&gt; is a vertex and &lt;code class=&quot;highlighter-rouge&quot;&gt;tin(i) = 0&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;Vin(i,:)&lt;/code&gt; is a ray.&lt;/p&gt;
+
+&lt;p&gt;If &lt;script type=&quot;math/tex&quot;&gt;P = \text{conv}\{v_i\}&lt;/script&gt;, passing &lt;code class=&quot;highlighter-rouge&quot;&gt;tin = ones(size(V,1),1)&lt;/code&gt; can be omitted &lt;code class=&quot;highlighter-rouge&quot;&gt;Vout = vertexReduction(Vin)&lt;/code&gt; assumes all passed points are vertices.&lt;/p&gt;
+
+&lt;h1 id=&quot;projection&quot;&gt;Projection&lt;/h1&gt;
+
+&lt;p&gt;The projection of polyhedral sets is performed for polyhedra in H-representation &lt;script type=&quot;math/tex&quot;&gt;P = \{x\in\mathbb R^n: A_{in}x \leq b_{in}\}&lt;/script&gt;,
+and is always projected on to &lt;script type=&quot;math/tex&quot;&gt;\mathbb R^{n-d}&lt;/script&gt;. The projected set &lt;script type=&quot;math/tex&quot;&gt;\pi_d(P) = \{y\in\mathbb R^{n-d}: \exists z\in\mathbb R^d y\times z\in P\}&lt;/script&gt; is returned in H-representation.&lt;/p&gt;
+
+&lt;p&gt;Internally a vertex enumeration is performed on &lt;script type=&quot;math/tex&quot;&gt;P&lt;/script&gt;, the projection operator &lt;script type=&quot;math/tex&quot;&gt;\pi_d&lt;/script&gt; acts trivially on points by just dropping off the last &lt;script type=&quot;math/tex&quot;&gt;n-d&lt;/script&gt; elements, after that a facet enumeration is appended to produce the H-representation of &lt;script type=&quot;math/tex&quot;&gt;\pi_d(P)&lt;/script&gt;.
+The function call &lt;code class=&quot;highlighter-rouge&quot;&gt;[Aout,bout] = projectPolyhedron(Ain,bin,d)&lt;/code&gt; performs this operation for general polyhedra:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;gallery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;uniformdata&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;facetEnumeration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;convhull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;trisurf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;hold&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;projectPolyhedron&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vertexEnumeration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;convhull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;b&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;hold&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;off&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;svg preserveaspectratio=&quot;xMinYMin meet&quot; width=&quot;100%&quot; height=&quot;100%&quot; viewbox=&quot;0 0 700.000 525.000&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+  &lt;desc&gt;Matlab Figure Converted by PLOT2SVG written by Juerg Schwizer&lt;/desc&gt;
+  &lt;g id=&quot;topgroup&quot;&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;700.000&quot; height=&quot;525.000&quot; fill=&quot;#ffffff&quot; stroke=&quot;none&quot; /&gt;
+  &lt;g id=&quot;ID000000&quot;&gt;
+  &lt;clippath id=&quot;ID000001&quot;&gt;
+    &lt;rect x=&quot;91.000&quot; y=&quot;39.375&quot; width=&quot;542.500&quot; height=&quot;427.875&quot; /&gt;
+  &lt;/clippath&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;310.997,467.250 633.500,375.687 413.503,241.461 91.000,333.024 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;633.500,375.687 413.503,241.461 413.503,39.375 633.500,173.601 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,333.024 413.503,241.461 413.503,39.375 91.000,130.938 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;310.99678,467.25000 91.00000,333.02415 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;375.49742,448.93747 155.50064,314.71161 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;439.99807,430.62493 220.00129,296.39908 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;504.49871,412.31240 284.50193,278.08654 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;568.99936,393.99986 349.00258,259.77401 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,375.68733 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 633.50000,375.68733 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;310.99678,467.25000 633.50000,375.68733 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;266.99742,440.40483 589.50064,348.84216 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;222.99807,413.55966 545.50129,321.99699 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;178.99871,386.71449 501.50193,295.15182 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;134.99936,359.86932 457.50258,268.30665 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,333.02415 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 91.00000,333.02415 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,375.68733 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,375.68733 633.50000,173.60085 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;589.50064,348.84216 589.50064,146.75568 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;545.50129,321.99699 545.50129,119.91051 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;501.50193,295.15182 501.50193,93.06534 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;457.50258,268.30665 457.50258,66.22017 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;413.50322,241.46148 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,375.68733 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,173.60085 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,375.68733 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,335.27004 413.50322,201.04418 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,294.85274 413.50322,160.62689 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,254.43544 413.50322,120.20959 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,214.01815 413.50322,79.79230 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;633.50000,173.60085 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,375.68733 633.50000,173.60085 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;413.50322,241.46148 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,333.02415 91.00000,130.93767 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;155.50064,314.71161 155.50064,112.62514 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;220.00129,296.39908 220.00129,94.31260 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;284.50193,278.08654 284.50193,76.00007 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;349.00258,259.77401 349.00258,57.68753 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;413.50322,241.46148 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,130.93767 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,333.02415 413.50322,241.46148 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,292.60685 413.50322,201.04418 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,252.18956 413.50322,160.62689 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,211.77226 413.50322,120.20959 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,171.35496 413.50322,79.79230 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;0.15&quot; points=&quot;91.00000,130.93767 413.50322,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 91.00000,130.93767 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;413.50322,241.46148 413.50322,39.37500 &quot; /&gt;
+    &lt;g&gt;
+&lt;g id=&quot;ID000002&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000003&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000004&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000005&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000006&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 345.591,239.676 423.180,176.144 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 275.766,307.202 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 486.289,359.686 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 423.180,176.144 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 345.591,239.676 430.960,356.087 &quot; /&gt;
+      &lt;polygon fill=&quot;#36369f&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;486.289,359.686 430.960,356.087 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#37b89d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;130.748,246.689 345.591,239.676 275.766,307.202 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 345.591,239.676 130.748,246.689 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 319.881,383.862 275.766,307.202 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 493.376,248.134 423.180,176.144 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 430.960,356.087 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 557.999,258.764 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#36369f&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;486.289,359.686 319.881,383.862 430.960,356.087 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 423.180,176.144 229.972,163.272 &quot; /&gt;
+      &lt;polygon fill=&quot;#37b89d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;130.748,246.689 275.766,307.202 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 557.999,258.764 493.376,248.134 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 423.180,176.144 385.911,120.173 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 486.289,359.686 557.999,258.764 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 570.292,277.673 557.999,258.764 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 130.748,246.689 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 319.881,383.862 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 229.972,163.272 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 130.748,246.689 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 295.601,285.057 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 385.911,120.173 428.537,187.584 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 428.537,187.584 570.292,277.673 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 340.859,199.478 428.537,187.584 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 263.459,232.155 340.859,199.478 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 263.459,232.155 130.748,246.689 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 428.537,187.584 295.601,285.057 &quot; /&gt;
+      &lt;polygon fill=&quot;#f8fa0d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;428.537,187.584 340.859,199.478 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 428.537,187.584 263.459,232.155 &quot; /&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000007&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#0000ff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;423.180,278.236 345.591,266.713 229.972,294.121 130.748,347.337 130.748,347.337 295.601,451.453 295.601,451.453 295.601,451.453 570.292,384.172 570.292,384.172 557.999,355.504 531.483,327.059 493.376,303.492 493.376,303.492 493.376,303.492 423.180,278.236 &quot; /&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000008&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#0000ff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;423.180,278.236 345.591,266.713 229.972,294.121 130.748,347.337 130.748,347.337 295.601,451.453 295.601,451.453 295.601,451.453 570.292,384.172 570.292,384.172 557.999,355.504 531.483,327.059 493.376,303.492 493.376,303.492 493.376,303.492 423.180,278.236 &quot; /&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000009&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 345.591,239.676 423.180,176.144 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 275.766,307.202 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 486.289,359.686 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 423.180,176.144 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 345.591,239.676 430.960,356.087 &quot; /&gt;
+      &lt;polygon fill=&quot;#36369f&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;486.289,359.686 430.960,356.087 345.591,239.676 &quot; /&gt;
+      &lt;polygon fill=&quot;#37b89d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;130.748,246.689 345.591,239.676 275.766,307.202 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 345.591,239.676 130.748,246.689 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 319.881,383.862 275.766,307.202 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 493.376,248.134 423.180,176.144 &quot; /&gt;
+      &lt;polygon fill=&quot;#353093&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;392.419,357.865 430.960,356.087 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#1389d2&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;493.376,248.134 557.999,258.764 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#36369f&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;486.289,359.686 319.881,383.862 430.960,356.087 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 423.180,176.144 229.972,163.272 &quot; /&gt;
+      &lt;polygon fill=&quot;#37b89d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;130.748,246.689 275.766,307.202 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 557.999,258.764 493.376,248.134 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 423.180,176.144 385.911,120.173 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 486.289,359.686 557.999,258.764 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 570.292,277.673 557.999,258.764 &quot; /&gt;
+      &lt;polygon fill=&quot;#9bbe6e&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;229.972,163.272 130.748,246.689 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 319.881,383.862 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 229.972,163.272 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 130.748,246.689 319.881,383.862 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 295.601,285.057 486.289,359.686 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 385.911,120.173 428.537,187.584 &quot; /&gt;
+      &lt;polygon fill=&quot;#f7d825&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;531.483,145.242 428.537,187.584 570.292,277.673 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 340.859,199.478 428.537,187.584 &quot; /&gt;
+      &lt;polygon fill=&quot;#f4e41c&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;385.911,120.173 263.459,232.155 340.859,199.478 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 263.459,232.155 130.748,246.689 &quot; /&gt;
+      &lt;polygon fill=&quot;#4dbc91&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;570.292,277.673 428.537,187.584 295.601,285.057 &quot; /&gt;
+      &lt;polygon fill=&quot;#f8fa0d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;428.537,187.584 340.859,199.478 263.459,232.155 &quot; /&gt;
+      &lt;polygon fill=&quot;#fdbe3d&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;295.601,285.057 428.537,187.584 263.459,232.155 &quot; /&gt;
+&lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 316.49670,470.60565 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;375.49742,448.93747 380.99734,452.29311 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;439.99807,430.62493 445.49799,433.98058 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;504.49871,412.31240 509.99863,415.66804 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;568.99936,393.99986 574.49928,397.35551 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,375.68733 638.99992,379.04298 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 633.50000,375.68733 &quot; /&gt;
+  &lt;g transform=&quot;translate(321.997,485.761)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(386.497,467.449)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(450.998,449.136)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(515.499,430.824)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(579.999,412.511)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(644.500,394.199)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 302.93420,469.53907 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;266.99742,440.40483 258.93484,442.69390 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;222.99807,413.55966 214.93549,415.84873 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;178.99871,386.71449 170.93613,389.00355 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;134.99936,359.86932 126.93678,362.15838 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 82.93742,335.31321 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;310.99678,467.25000 91.00000,333.02415 &quot; /&gt;
+  &lt;g transform=&quot;translate(294.872,483.628)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(250.872,456.783)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(206.873,429.938)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(162.874,403.093)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(118.874,376.247)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(74.875,349.402)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 85.50008,329.66850 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,292.60685 85.50008,289.25120 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,252.18956 85.50008,248.83391 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,211.77226 85.50008,208.41661 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,171.35496 85.50008,167.99932 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,130.93767 85.50008,127.58202 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,333.02415 91.00000,130.93767 &quot; /&gt;
+  &lt;g transform=&quot;translate(80.000,330.813)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.000,290.396)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.000,249.978)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.000,209.561)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.000,169.144)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;0.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.000,128.726)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;1&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+
+&lt;h1 id=&quot;vertex-and-facet-enumeration-with-lrs-parameters&quot;&gt;Vertex and facet enumeration with LRS parameters&lt;/h1&gt;
+
+&lt;p&gt;The functions &lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration()&lt;/code&gt; perform a vertex and facet enumeration respectively for data that was preconditioned by the user.
+The &lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt; call requires the user to prepare a type vector if rays are present etc. and the &lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration()&lt;/code&gt; call only treats inequality constrained sets.
+To exploit (almost) the full scope of possibilities the LRS engine offers the &lt;code class=&quot;highlighter-rouge&quot;&gt;LRS()&lt;/code&gt; function is provided.&lt;/p&gt;
+
+&lt;p&gt;The argument is a &lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt; with the required field &lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;rep&#39;&lt;/code&gt; specifying whether a V- or an H-representation is passed.
+Each representation has its own arguments:&lt;/p&gt;
+
+&lt;p&gt;Assume we want to facet enumerate the first quadrant, i.e. &lt;script type=&quot;math/tex&quot;&gt;P=\text{cone}\left\{\begin{pmatrix}1 \\\\ 0\end{pmatrix}, \begin{pmatrix}0 \\\\ 1\end{pmatrix} \right\}&lt;/script&gt;, then we define the structure&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rep&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;V&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;R&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If we have &lt;script type=&quot;math/tex&quot;&gt;P = \text{cone}\left\{\begin{pmatrix}1 \\\\ 0\end{pmatrix}, \begin{pmatrix}0 \\\\ 1\end{pmatrix} \right\} \oplus \text{conv}\left\{\begin{pmatrix}1\\\\1 \end{pmatrix} \right\}&lt;/script&gt; we set the additional field&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That is, if the &lt;code class=&quot;highlighter-rouge&quot;&gt;s.rep=&#39;V&#39;&lt;/code&gt; at least one of &lt;code class=&quot;highlighter-rouge&quot;&gt;s.V&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;s.R&lt;/code&gt; has to be passed.&lt;/p&gt;
+
+&lt;p&gt;Assume now that we want to vertex enumerate the 3-dimensional simplex &lt;script type=&quot;math/tex&quot;&gt;P = \{x:x_1\geq0,x_2\geq0,x_3\geq0,x_1+x_2+x_3=1\}&lt;/script&gt;,
+that is the representation of &lt;code class=&quot;highlighter-rouge&quot;&gt;rep=&#39;H&#39;&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rep&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;H&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Aineq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;bineq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Aeq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;beq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The interpretation of the output for a vertex enumeration is exactly the same as for &lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt; that is, &lt;code class=&quot;highlighter-rouge&quot;&gt;V(i,:)&lt;/code&gt; is a vertex if &lt;code class=&quot;highlighter-rouge&quot;&gt;t(i)=1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;V(i,:)&lt;/code&gt; is a ray if &lt;code class=&quot;highlighter-rouge&quot;&gt;t(i)=0&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;s.rep=&#39;H&#39;&lt;/code&gt; then &lt;code class=&quot;highlighter-rouge&quot;&gt;s.Aineq&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s.bineq&lt;/code&gt; are required, &lt;code class=&quot;highlighter-rouge&quot;&gt;s.Aeq&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s.beq&lt;/code&gt; are optional.&lt;/p&gt;
+
+&lt;p&gt;In addition to the computational data parameters may be passed, so far &lt;code class=&quot;highlighter-rouge&quot;&gt;maxcobases&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;maxoutput&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;maxdepth&lt;/code&gt; are accepted. See &lt;a href=&quot;http://cgm.cs.mcgill.ca/%7Eavis/C/lrslib/USERGUIDE.html#Options&quot;&gt;LRS options&lt;/a&gt; for details.&lt;/p&gt;
+
+&lt;p&gt;If we want to restrict the number of search depth in the vertex enumeration of a 12-dimensional cube, and further we also want to constrain the number of explored cobases and only need 5 vertices we would call&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LRS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rep&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;H&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Aineq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)],&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;bineq&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;maxdepth&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;maxcobases&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;maxoutput&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+     &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Warning: Although this function has been thoroughly tested, there might be uncaught exceptions. 
+Matlab will immediately crash if you come across an uncaught exception.
+These exceptions have no numerical nature, but can occur when passing unaccepted data types &lt;em&gt;(passing cell arrays instead of arrays etc.&lt;/em&gt;).
+Please test your code your function calls before calling this function in an automated environment!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;writing-and-reading-lrs-input-files&quot;&gt;Writing and reading LRS input files&lt;/h1&gt;
+
+&lt;p&gt;Many LRS users might prefer to call the LRS executable directly in order to be able to see the output as it is obtained, rather than waiting for the entire solution to be returned. 
+For this purpose &lt;code class=&quot;highlighter-rouge&quot;&gt;createLRSfile(&#39;param1&#39;,param1,...)&lt;/code&gt; is provided to generate a LRS input file from within the Matlab environment.&lt;/p&gt;
+
+&lt;p&gt;The supported parameters are&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;fname&lt;/code&gt; - specifies the file name of the LRS input file created, if omitted a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;lrstest.ine&lt;/code&gt; is created in the current directory.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rep&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;V&#39;&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;&#39;H&#39;&lt;/code&gt; implying that the data is passed in a V- or H-representation respectively.&lt;/li&gt;
+  &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;rep=&#39;V&#39;&lt;/code&gt; vertices are passed as the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;V&lt;/code&gt; in a matrix &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat&lt;/code&gt; containing a vertex/ray in each row, optionally &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt; can be used to pass a vector of &lt;code class=&quot;highlighter-rouge&quot;&gt;1/0&lt;/code&gt; such that &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 0&lt;/code&gt; implies &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat(i,:)&lt;/code&gt; is a ray and &lt;code class=&quot;highlighter-rouge&quot;&gt;type(i) = 1&lt;/code&gt; implies &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat(i,:)&lt;/code&gt; is a vertex.
+If &lt;code class=&quot;highlighter-rouge&quot;&gt;Type&lt;/code&gt;is not specified all rows of &lt;code class=&quot;highlighter-rouge&quot;&gt;vdat&lt;/code&gt; are assumed to be vertices.&lt;/li&gt;
+  &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;rep=&#39;H&#39;&lt;/code&gt; the set of inequalities &lt;script type=&quot;math/tex&quot;&gt;\{x:A_{dat}x\leq b_{dat}\}&lt;/script&gt; is passed by setting &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;Adat&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;bdat&lt;/code&gt;.
+If &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; is omitted the set is assumed to be &lt;script type=&quot;math/tex&quot;&gt;\{x:A_{dat}x\leq{\bf{1}}\}&lt;/script&gt;&lt;/li&gt;
+  &lt;li&gt;The optional parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;tol&lt;/code&gt; may be set to the desired conversion tolerance to a rational format, default &lt;code class=&quot;highlighter-rouge&quot;&gt;1e-12&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To create an LRS input file &lt;code class=&quot;highlighter-rouge&quot;&gt;myfile.ine&lt;/code&gt; to vertex enumerate the &lt;script type=&quot;math/tex&quot;&gt;\ell_\infty&lt;/script&gt; unit ball in two dimensions &lt;script type=&quot;math/tex&quot;&gt;\|x\|_\infty\leq 1&lt;/script&gt; we would use&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eye&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;createLRSfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rep&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;H&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;A&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;b&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;fname&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;myfile.ine&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Users who have produced results using the LRS executable wanting to import it into the Matlab environment would first change the head of the result file into an admissible LRS input file, i.e replace the &lt;code class=&quot;highlighter-rouge&quot;&gt;***** n rational&lt;/code&gt; line by &lt;code class=&quot;highlighter-rouge&quot;&gt;m n rational&lt;/code&gt;, where &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; are the number of rows and columns respectively. Then pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;filename&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;readLRSfile(&#39;filename&#39;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To read in the result of a vertex enumeration in &lt;code class=&quot;highlighter-rouge&quot;&gt;myfile.ext&lt;/code&gt;, i.e. the result is in V-representation, we would call&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;readLRSfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;myfile.ext&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+</description>
+        <pubDate>Sat, 09 Apr 2016 12:32:35 +0100</pubDate>
+        <link>http://worc4021.github.io/jekyll/update/2016/04/09/user-guide.html</link>
+        <guid isPermaLink="true">http://worc4021.github.io/jekyll/update/2016/04/09/user-guide.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Installing the GeoCalcLib</title>
+        <description>&lt;p&gt;The &lt;a href=&quot;http://cgm.cs.mcgill.ca/~avis/C/lrs.html&quot;&gt;LRS library&lt;/a&gt; works on both Mac and Linux and can be made to work on Windows.&lt;/p&gt;
+
+&lt;p&gt;In order to work you will need the &lt;a href=&quot;https://gmplib.org&quot;&gt;GMP Library&lt;/a&gt; installed on your system. 
+During the build of the GMP library, make sure you install it with the same ABI as your Matlab, i.e. if you have a 64-bit Matlab make sure you select &lt;code class=&quot;highlighter-rouge&quot;&gt;ABI=64&lt;/code&gt; during your build. 
+If you are unsure which Matlab version you have, run&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matlab&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and check which Java version is linked, they are installed compatibly. The GeoCalcLib is untested on 32-bit installations.&lt;/p&gt;
+
+&lt;p&gt;To install the GeoCalcLib open your Terminal navigate to your desired directory and clone the repository by typing&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/worc4021/GeoCalcLib.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;GeoCalcLib&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Create a text file named &lt;code class=&quot;highlighter-rouge&quot;&gt;User.make&lt;/code&gt; in which you define the absolute path to your Matlab installation &lt;code class=&quot;highlighter-rouge&quot;&gt;MATLABROOT&lt;/code&gt;
+and the desired installation directory &lt;code class=&quot;highlighter-rouge&quot;&gt;INSTALLDIR&lt;/code&gt; &lt;em&gt;(a directory on your Matlab path&lt;/em&gt;), e.g.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-make&quot; data-lang=&quot;make&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Specify the absolute path to your Matlab installation
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;MATLABROOT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; /Applications/MATLAB_R2016a.app
+
+&lt;span class=&quot;c&quot;&gt;# Path to which everything should be installed, has to be on Matlab path!
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;INSTALLDIR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt; /Users/Username/Documents/MATLAB/Functions&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you do not yet have a directory on your Matlab path to store your functions and want to add one, run &lt;code class=&quot;highlighter-rouge&quot;&gt;edit startup&lt;/code&gt; in Matlab and add&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;addpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;/absolute/path/to/your/directory&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;or find &lt;a href=&quot;http://uk.mathworks.com/help/matlab/matlab_env/what-is-the-matlab-search-path.html&quot;&gt;alternative ways of setting up your path here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now you can run&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;make&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;to build the interface.&lt;/p&gt;
+
+&lt;p&gt;Next you have to load the library in Matlab, for this you need to specify the location of the header file containing the information Matlab needs to call the individual functions, see &lt;a href=&quot;http://uk.mathworks.com/help/matlab/using-c-shared-library-functions-in-matlab-.html&quot;&gt;here&lt;/a&gt; for details.
+You can load the interface on startup, to do this run Matlab and edit the startup.m file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;edit&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;startup&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If it already exists add the lines&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;loadlibrary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;libgeocalc&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;PATH/mainFunctions.h&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;GeoCalc library loaded.&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;where you replace &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt; with the absolute path to the directory containing the header file &lt;code class=&quot;highlighter-rouge&quot;&gt;mainFunctions.h&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once the library is loaded you need to unload it before you can exit Matlab! So exit Matlab from the session in which you modified &lt;code class=&quot;highlighter-rouge&quot;&gt;startup.m&lt;/code&gt; &lt;em&gt;(it has not been executed, therefore GeoCalcLib has not been loaded&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Run Matlab again and edit &lt;code class=&quot;highlighter-rouge&quot;&gt;finish.m&lt;/code&gt; by typing&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;edit&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;finish&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;add the line&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;unloadlibrary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;libgeocalc&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you do not wish to load the GeoCalcLib every time you run Matlab, load the library by calling&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;loadlibrary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;libgeocalc&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;PATH/mainFunctions.h&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;at the beginning of your session and&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;nb&quot;&gt;unloadlibrary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;libgeocalc&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;at the end of your session.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 08 Apr 2016 12:32:35 +0100</pubDate>
+        <link>http://worc4021.github.io/jekyll/update/2016/04/08/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://worc4021.github.io/jekyll/update/2016/04/08/welcome-to-jekyll.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>
