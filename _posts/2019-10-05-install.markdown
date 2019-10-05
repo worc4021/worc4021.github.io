@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Installing the GeoCalcLib - Mex approach"
-date:   2018-12-08 12:32:35 +0100
-categories: install update
+title:  "Installing GeoCalcLib"
+date:   2019-10-05 14:41:36 +0100
+categories: install
+mathjax: true
 ---
-
 
 > Warning: The previous way of installing the GeoCalcLib has been deprecated. This is the maintaned method of building the binaries.
 

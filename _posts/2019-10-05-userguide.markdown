@@ -1,9 +1,11 @@
 ---
 layout: post
 title:  "User Guide"
-date: 2016-04-09 12:32:35 +0100
-categories: jekyll update
+date:   2019-10-05 14:41:36 +0100
+categories: userguide
+mathjax: true
 ---
+
 
 > Warning: There are no guarantees for the robustness of the GeoCalcLib!
 > Please report any malfunction.
@@ -27,15 +29,20 @@ Facet Enumeration
 
 Generate a set of vertices:
 
-\begin{equation}
+$$
 V = \left(\begin{array}{c}
 	v_1^T \\\\[0em]
 	v_2^T \\\\[0em]
 	\vdots
 	\end{array}\right)
-\end{equation}
+$$
 
-For example $$P = \text{conv}\left\{\left(\begin{array}{c} 1 \\\\[0em] 0 \end{array}\right),\left(\begin{array}{c} 0 \\\\[0em] 1 \end{array}\right), \left(\begin{array}{c} -1 \\\\[0em] 0 \end{array}\right), \left(\begin{array}{c} 0 \\\\[0em] -1 \end{array}\right)\right\}$$ translates to
+
+For example 
+
+$$P = \text{conv}\left\{\left(\begin{array}{c} 1 \\\\[0em] 0 \end{array}\right),\left(\begin{array}{c} 0 \\\\[0em] 1 \end{array}\right), \left(\begin{array}{c} -1 \\\\[0em] 0 \end{array}\right), \left(\begin{array}{c} 0 \\\\[0em] -1 \end{array}\right)\right\}$$
+
+translates to
 
 {% highlight Matlab %}
     V = [eye(2);-eye(2)];
@@ -48,19 +55,16 @@ We can produce a plot of the polytope $$P$$ using
 	fill(V(k,1),V(k,2),'r');
 {% endhighlight %}
 
+The H-representation of $P$ is trivially obtained as
 
-{% include raute.svg %}
-
-The H-representation of $$P$$ is trivially obtained as
-
-\begin{equation}
-P = \left\\{x\in\mathbb R^2 : \begin{pmatrix}
+$$
+P = \left\{x\in\mathbb R^2 : \begin{pmatrix}
 1 & 1 \\\\[0em]
 -1 & 1 \\\\[0em]
 1 & -1 \\\\[0em]
 -1 & -1
-\end{pmatrix} x \leq \begin{pmatrix} 1 \\\\[0em] 1 \\\\[0em] 1 \\\\[0em] 1 \end{pmatrix} \right\\}
-\end{equation}
+\end{pmatrix} x \leq \begin{pmatrix} 1 \\\\[0em] 1 \\\\[0em] 1 \\\\[0em] 1 \end{pmatrix}\right\}
+$$
 
 This can result is obtained by calling `[A,b] = facetEnumeration(V)`. Called with one argument `facetEnumeration(V)` assumes that all rows in `V` are vertices. 
 
@@ -70,10 +74,8 @@ If rays are present, an additional vector `type` must be provided
 [A,b] = facetEnumeration(V,type)
 {% endhighlight %}
 
-
 each row in `type` is either `type(i) = 1` if `V(i,:)` is a vertex or `type(i) = 0` if `V(i,:)` is a ray.
 `[A,b] = facetEnumeration(V,ones(size(V,1),1))` produces the same result as `[A,b]=facetEnumeration(V)`.
-
 
 Vertex Enumeration
 ==================
@@ -84,12 +86,12 @@ Assume we want to understand the epigraph $$\text{epi}(\varphi)$$ of the piecewi
 for $$x\in[0,5]$$.
 The epigraph is given by
 
-\begin{equation}
-\text{epi}(\varphi) = \left\\{ (x,t) : 0\leq x\leq 5, x+1\leq t, 2x \leq t, 3x-4\leq t
-\right\\}
-\end{equation}
+$$
+\text{epi}(\varphi) = \left\{ (x,t) : 0\leq x\leq 5, x+1\leq t, 2x \leq t, 3x-4\leq t
+\right\}
+$$
 
-\begin{equation}
+$$
 A = \begin{pmatrix}
 	1 &   -1\\\\[0em]
      2 &   -1\\\\[0em]
@@ -99,7 +101,7 @@ A = \begin{pmatrix}
 \end{pmatrix}
 , b = \begin{pmatrix}-1 \\\\[0em] 0 \\\\[0em] 4 \\\\[0em] 5 \\\\[0em] 0
 \end{pmatrix}
-\end{equation}
+$$
 
 Using this as an input
 
@@ -130,7 +132,6 @@ we obtain the vertices and rays generating the epigraph.
 plot(V(logical(t),1),V(logical(t),2))
 {% endhighlight %}
 
-{% include epigraph.svg %}
 
 Inequality Reduction
 ====================
@@ -171,8 +172,6 @@ fill(V(k,1),V(k,2),'b');
 hold off
 {% endhighlight %}
 
-
-{% include projection.svg %}
 
 
 Vertex and facet enumeration with LRS parameters
