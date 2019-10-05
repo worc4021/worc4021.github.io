@@ -30,7 +30,7 @@ plugins:
   # - jekyll-katex
 
 
-destination: http://worc4021.github.io/GeoCalcLib
+destination: http://worc4021.github.io
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
