@@ -6,9 +6,6 @@ categories: install
 mathjax: true
 ---
 
-> Warning: The previous way of installing the GeoCalcLib has been deprecated. This is the maintaned method of building the binaries.
-
-
 A prerequisite to run the GeoCalcLib is to have the [GMP Library][gmp] on your machine. At build time, you will need the main header file `gmp.h` however the library itself is largely irrelevant, as Matlab provides a gmp redistributable.
 
 To install the GeoCalcLib open your Terminal navigate to your desired directory and clone the repository by typing
