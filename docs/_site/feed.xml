@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GeoCalcLib</title>
+    <description>Homepage of the GeoCalcLib, a Matlab interface for the LRS library.
+</description>
+    <link>https://github.com/worc4021/GeoCalcLib/</link>
+    <atom:link href="https://github.com/worc4021/GeoCalcLib/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 08 Apr 2016 13:03:39 +0100</pubDate>
+    <lastBuildDate>Fri, 08 Apr 2016 13:03:39 +0100</lastBuildDate>
+    <generator>Jekyll v3.1.1</generator>
+    
+      <item>
+        <title>Installing the GeoCalcLib</title>
+        <description>&lt;p&gt;To install the GeoCalcLib open your Terminal navigate to your desired directory and clone the repository by typing&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+	git clone https://github.com/worc4021/GeoCalcLib.git
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Tom&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &#39;Hi, Tom&#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 08 Apr 2016 12:32:35 +0100</pubDate>
+        <link>https://github.com/worc4021/GeoCalcLib/jekyll/update/2016/04/08/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">https://github.com/worc4021/GeoCalcLib/jekyll/update/2016/04/08/welcome-to-jekyll.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>User Guide</title>
+        <description>&lt;p&gt;The GeoCalcLib provides five different wrappers to call the LRS routines:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration()&lt;/code&gt; calculates a half space description for the provides vertex/ray description.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vertexEnumeration()&lt;/code&gt;calculates a vertex description for the provided half space description.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;inequalityReduction()&lt;/code&gt; produces an irredundant half space description for a polyhedron in half space description.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vertexReduction()&lt;/code&gt; produces an irredundant vertex/ray description of a polyhedron in vertex/ray description.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;projectPolyhedron()&lt;/code&gt; does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;facetenumeration&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;facetEnumeration()&lt;/code&gt;&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;    &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;linspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;linspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;convhull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+	&lt;span class=&quot;nb&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;r&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;produces&lt;/p&gt;
+
+&lt;svg preserveaspectratio=&quot;xMinYMin meet&quot; width=&quot;100%&quot; height=&quot;100%&quot; viewbox=&quot;0 0 700.000 525.000&quot; version=&quot;1.1&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot;&gt;
+  &lt;desc&gt;Matlab Figure Converted by PLOT2SVG written by Juerg Schwizer&lt;/desc&gt;
+  &lt;g id=&quot;topgroup&quot;&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;700.000&quot; height=&quot;525.000&quot; fill=&quot;#ffffff&quot; stroke=&quot;none&quot; /&gt;
+  &lt;g id=&quot;ID000000&quot;&gt;
+  &lt;clippath id=&quot;ID000001&quot;&gt;
+    &lt;rect x=&quot;91.000&quot; y=&quot;39.375&quot; width=&quot;542.500&quot; height=&quot;427.875&quot; /&gt;
+  &lt;/clippath&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 633.500,467.250 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,39.375 633.500,39.375 633.500,39.375 91.000,39.375 &quot; /&gt;
+      &lt;polygon fill=&quot;#ffffff&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;none&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;91.000,467.250 91.000,467.250 91.000,39.375 91.000,39.375 &quot; /&gt;
+    &lt;g&gt;
+&lt;g id=&quot;ID000002&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000003&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000004&quot;&gt;
+&lt;/g&gt;
+&lt;g id=&quot;ID000005&quot; clip-path=&quot;url(#ID000001)&quot;&gt;
+      &lt;polygon fill=&quot;#ff0000&quot; fill-opacity=&quot;1.00&quot; stroke=&quot;#000000&quot; stroke-width=&quot;0.5pt&quot; stroke-opacity=&quot;1.00&quot; stroke-dasharray=&quot;none&quot; points=&quot;362.250,39.375 345.046,39.806 327.912,41.096 310.916,43.241 294.126,46.232 277.611,50.057 261.437,54.700 245.668,60.143 230.369,66.363 215.601,73.337 201.424,81.035 187.894,89.427 175.066,98.479 162.992,108.154 151.720,118.414 141.296,129.217 131.762,140.519 123.156,152.276 115.512,164.440 108.862,176.961 103.233,189.790 98.646,202.875 95.121,216.163 92.671,229.600 91.307,243.133 91.034,256.707 91.853,270.267 93.761,283.759 96.750,297.128 100.808,310.321 105.919,323.285 112.061,335.966 119.212,348.315 127.341,360.281 136.415,371.817 146.400,382.875 157.253,393.412 168.932,403.384 181.389,412.753 194.574,421.479 208.435,429.528 222.915,436.867 237.956,443.468 253.498,449.302 269.477,454.348 285.830,458.584 302.491,461.994 319.392,464.563 336.466,466.281 353.644,467.142 370.856,467.142 388.034,466.281 405.108,464.563 422.009,461.994 438.670,458.584 455.023,454.348 471.002,449.302 486.544,443.468 501.585,436.867 516.065,429.528 529.926,421.479 543.111,412.753 555.568,403.384 567.247,393.412 578.100,382.875 588.085,371.817 597.159,360.281 605.288,348.315 612.439,335.966 618.581,323.285 623.692,310.321 627.750,297.128 630.739,283.759 632.647,270.267 633.466,256.707 633.193,243.133 631.829,229.600 629.379,216.163 625.854,202.875 621.267,189.790 615.638,176.961 608.988,164.440 601.344,152.276 592.738,140.519 583.204,129.217 572.780,118.414 561.508,108.154 549.434,98.479 536.606,89.427 523.076,81.035 508.899,73.337 494.131,66.363 478.832,60.143 463.063,54.700 446.889,50.057 430.374,46.232 413.584,43.241 396.588,41.096 379.454,39.806 362.250,39.375 &quot; /&gt;
+&lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,467.25000 145.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,467.25000 199.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,467.25000 253.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,467.25000 308.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,467.25000 362.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,467.25000 416.50000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,467.25000 470.75000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,467.25000 525.00000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,467.25000 579.25000,461.82500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 633.50000,467.25000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;145.25000,39.37500 145.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;199.50000,39.37500 199.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;253.75000,39.37500 253.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;308.00000,39.37500 308.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;362.25000,39.37500 362.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;416.50000,39.37500 416.50000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;470.75000,39.37500 470.75000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;525.00000,39.37500 525.00000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;579.25000,39.37500 579.25000,44.80000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,39.37500 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(91.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(145.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(199.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(253.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(308.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(362.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(416.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(470.750,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(525.000,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(579.250,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(633.500,487.608)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;middle&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,424.46250 96.42500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,381.67500 96.42500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,338.88750 96.42500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,296.10000 96.42500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,253.31250 96.42500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,210.52500 96.42500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,167.73750 96.42500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,124.95000 96.42500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,82.16250 96.42500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,39.37500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,424.46250 628.07500,424.46250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,381.67500 628.07500,381.67500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,338.88750 628.07500,338.88750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,296.10000 628.07500,296.10000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,253.31250 628.07500,253.31250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,210.52500 628.07500,210.52500 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,167.73750 628.07500,167.73750 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,124.95000 628.07500,124.95000 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,82.16250 628.07500,82.16250 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;633.50000,467.25000 633.50000,39.37500 &quot; /&gt;
+  &lt;g transform=&quot;translate(80.150,471.750)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,428.962)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,386.175)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,343.388)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,300.600)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;4.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,257.812)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,215.025)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.2&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,172.237)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.4&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,129.450)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,86.663)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;5.8&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;g transform=&quot;translate(80.150,43.875)&quot;&gt;
+    &lt;g transform=&quot;rotate(-0.0)&quot;&gt;
+      &lt;text x=&quot;0.000&quot; y=&quot;0.000&quot; font-family=&quot;Helvetica&quot; text-anchor=&quot;end&quot; font-size=&quot;10pt&quot; fill=&quot;#262626&quot;&gt;&lt;tspan&gt;6&lt;/tspan&gt;&lt;/text&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,462.97125 &quot; /&gt;
+      &lt;polyline fill=&quot;none&quot; stroke=&quot;#262626&quot; stroke-width=&quot;0.5pt&quot; stroke-dasharray=&quot;none&quot; stroke-opacity=&quot;1.00&quot; points=&quot;91.00000,467.25000 91.00000,467.25000 &quot; /&gt;
+    &lt;/g&gt;
+  &lt;/g&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+</description>
+        <pubDate>Fri, 08 Apr 2016 12:32:35 +0100</pubDate>
+        <link>https://github.com/worc4021/GeoCalcLib/jekyll/update/2016/04/08/user-guide.html</link>
+        <guid isPermaLink="true">https://github.com/worc4021/GeoCalcLib/jekyll/update/2016/04/08/user-guide.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>User Guide</title>
+  <meta name="description" content="The GeoCalcLib provides five different wrappers to call the LRS routines:">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://github.com/worc4021/GeoCalcLib/jekyll/update/2016/04/08/user-guide.html">
+  <link rel="alternate" type="application/rss+xml" title="GeoCalcLib" href="https://github.com/worc4021/GeoCalcLib/feed.xml">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">GeoCalcLib</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="/about/">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">User Guide</h1>
+    <p class="post-meta"><time datetime="2016-04-08T12:32:35+01:00" itemprop="datePublished">Apr 8, 2016</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>The GeoCalcLib provides five different wrappers to call the LRS routines:</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">facetEnumeration()</code> calculates a half space description for the provides vertex/ray description.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">vertexEnumeration()</code>calculates a vertex description for the provided half space description.</p>
+  </li>
+  <li><code class="highlighter-rouge">inequalityReduction()</code> produces an irredundant half space description for a polyhedron in half space description.</li>
+  <li><code class="highlighter-rouge">vertexReduction()</code> produces an irredundant vertex/ray description of a polyhedron in vertex/ray description.</li>
+  <li><code class="highlighter-rouge">projectPolyhedron()</code> does not call a LRS routine, but projects a polyhedron in half space description and returns the result in half space description.</li>
+</ol>
+
+<h3 id="facetenumeration"><code class="highlighter-rouge">facetEnumeration()</code></h3>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab">    <span class="n">V</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sin</span><span class="p">(</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">));</span><span class="nb">cos</span><span class="p">(</span><span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">))]</span><span class="o">'</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="nb">convhull</span><span class="p">(</span><span class="n">V</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">V</span><span class="p">(:,</span><span class="mi">2</span><span class="p">));</span>
+	<span class="nb">fill</span><span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">V</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="s1">'r'</span><span class="p">);</span></code></pre></figure>
+
+<p>produces</p>
+
+<svg preserveaspectratio="xMinYMin meet" width="100%" height="100%" viewbox="0 0 700.000 525.000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <desc>Matlab Figure Converted by PLOT2SVG written by Juerg Schwizer</desc>
+  <g id="topgroup">
+  <rect x="0" y="0" width="700.000" height="525.000" fill="#ffffff" stroke="none" />
+  <g id="ID000000">
+  <clippath id="ID000001">
+    <rect x="91.000" y="39.375" width="542.500" height="427.875" />
+  </clippath>
+      <polygon fill="#ffffff" fill-opacity="1.00" stroke="none" stroke-width="0.5pt" stroke-opacity="1.00" stroke-dasharray="none" points="91.000,467.250 633.500,467.250 633.500,39.375 91.000,39.375 " />
+      <polygon fill="#ffffff" fill-opacity="1.00" stroke="none" stroke-width="0.5pt" stroke-opacity="1.00" stroke-dasharray="none" points="91.000,39.375 633.500,39.375 633.500,39.375 91.000,39.375 " />
+      <polygon fill="#ffffff" fill-opacity="1.00" stroke="none" stroke-width="0.5pt" stroke-opacity="1.00" stroke-dasharray="none" points="91.000,467.250 91.000,467.250 91.000,39.375 91.000,39.375 " />
+    <g>
+<g id="ID000002">
+</g>
+<g id="ID000003">
+</g>
+<g id="ID000004">
+</g>
+<g id="ID000005" clip-path="url(#ID000001)">
+      <polygon fill="#ff0000" fill-opacity="1.00" stroke="#000000" stroke-width="0.5pt" stroke-opacity="1.00" stroke-dasharray="none" points="362.250,39.375 345.046,39.806 327.912,41.096 310.916,43.241 294.126,46.232 277.611,50.057 261.437,54.700 245.668,60.143 230.369,66.363 215.601,73.337 201.424,81.035 187.894,89.427 175.066,98.479 162.992,108.154 151.720,118.414 141.296,129.217 131.762,140.519 123.156,152.276 115.512,164.440 108.862,176.961 103.233,189.790 98.646,202.875 95.121,216.163 92.671,229.600 91.307,243.133 91.034,256.707 91.853,270.267 93.761,283.759 96.750,297.128 100.808,310.321 105.919,323.285 112.061,335.966 119.212,348.315 127.341,360.281 136.415,371.817 146.400,382.875 157.253,393.412 168.932,403.384 181.389,412.753 194.574,421.479 208.435,429.528 222.915,436.867 237.956,443.468 253.498,449.302 269.477,454.348 285.830,458.584 302.491,461.994 319.392,464.563 336.466,466.281 353.644,467.142 370.856,467.142 388.034,466.281 405.108,464.563 422.009,461.994 438.670,458.584 455.023,454.348 471.002,449.302 486.544,443.468 501.585,436.867 516.065,429.528 529.926,421.479 543.111,412.753 555.568,403.384 567.247,393.412 578.100,382.875 588.085,371.817 597.159,360.281 605.288,348.315 612.439,335.966 618.581,323.285 623.692,310.321 627.750,297.128 630.739,283.759 632.647,270.267 633.466,256.707 633.193,243.133 631.829,229.600 629.379,216.163 625.854,202.875 621.267,189.790 615.638,176.961 608.988,164.440 601.344,152.276 592.738,140.519 583.204,129.217 572.780,118.414 561.508,108.154 549.434,98.479 536.606,89.427 523.076,81.035 508.899,73.337 494.131,66.363 478.832,60.143 463.063,54.700 446.889,50.057 430.374,46.232 413.584,43.241 396.588,41.096 379.454,39.806 362.250,39.375 " />
+</g>
+    </g>
+    <g>
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="145.25000,467.25000 145.25000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="199.50000,467.25000 199.50000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="253.75000,467.25000 253.75000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="308.00000,467.25000 308.00000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="362.25000,467.25000 362.25000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="416.50000,467.25000 416.50000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="470.75000,467.25000 470.75000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="525.00000,467.25000 525.00000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="579.25000,467.25000 579.25000,461.82500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,467.25000 633.50000,467.25000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="145.25000,39.37500 145.25000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="199.50000,39.37500 199.50000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="253.75000,39.37500 253.75000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="308.00000,39.37500 308.00000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="362.25000,39.37500 362.25000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="416.50000,39.37500 416.50000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="470.75000,39.37500 470.75000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="525.00000,39.37500 525.00000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="579.25000,39.37500 579.25000,44.80000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,39.37500 633.50000,39.37500 " />
+  <g transform="translate(91.000,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(145.250,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>4.2</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(199.500,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>4.4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(253.750,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>4.6</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(308.000,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>4.8</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(362.250,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>5</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(416.500,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>5.2</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(470.750,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>5.4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(525.000,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>5.6</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(579.250,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>5.8</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(633.500,487.608)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="middle" font-size="10pt" fill="#262626"><tspan>6</tspan></text>
+    </g>
+  </g>
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,424.46250 96.42500,424.46250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,381.67500 96.42500,381.67500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,338.88750 96.42500,338.88750 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,296.10000 96.42500,296.10000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,253.31250 96.42500,253.31250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,210.52500 96.42500,210.52500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,167.73750 96.42500,167.73750 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,124.95000 96.42500,124.95000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,82.16250 96.42500,82.16250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,467.25000 91.00000,39.37500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,424.46250 628.07500,424.46250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,381.67500 628.07500,381.67500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,338.88750 628.07500,338.88750 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,296.10000 628.07500,296.10000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,253.31250 628.07500,253.31250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,210.52500 628.07500,210.52500 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,167.73750 628.07500,167.73750 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,124.95000 628.07500,124.95000 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,82.16250 628.07500,82.16250 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="633.50000,467.25000 633.50000,39.37500 " />
+  <g transform="translate(80.150,471.750)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,428.962)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>4.2</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,386.175)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>4.4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,343.388)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>4.6</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,300.600)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>4.8</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,257.812)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>5</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,215.025)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>5.2</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,172.237)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>5.4</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,129.450)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>5.6</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,86.663)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>5.8</tspan></text>
+    </g>
+  </g>
+  <g transform="translate(80.150,43.875)">
+    <g transform="rotate(-0.0)">
+      <text x="0.000" y="0.000" font-family="Helvetica" text-anchor="end" font-size="10pt" fill="#262626"><tspan>6</tspan></text>
+    </g>
+  </g>
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,467.25000 91.00000,462.97125 " />
+      <polyline fill="none" stroke="#262626" stroke-width="0.5pt" stroke-dasharray="none" stroke-opacity="1.00" points="91.00000,467.25000 91.00000,467.25000 " />
+    </g>
+  </g>
+  </g>
+</svg>
+
+  </div>
+
+</article>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">GeoCalcLib</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li>GeoCalcLib</li>
+          <li><a href="mailto:rainer.schaich@eng.ox.ac.uk">rainer.schaich@eng.ox.ac.uk</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-2">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/worc4021"><span class="icon icon--github"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">worc4021</span></a>
+
+          </li>
+          
+
+          
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <p>Homepage of the GeoCalcLib, a Matlab interface for the LRS library.
+</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
